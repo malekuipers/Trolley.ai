@@ -1,114 +1,242 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style><title>Founders Summit Takeover</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<script>document.documentElement.classList.add("js")</script>
 <style>
-/* Layout: one long run-sheet. Sticky section nav, sections read like an event production binder. */
+/* Layout: Vercel-style monochrome. Dark grid hero, light content, one blue accent. Sections reveal on scroll. */
 :root{
-  --bg:#F5F7F9; --surface:#FFFFFF; --ink:#13202E; --muted:#5A6878; --line:#DCE2E8;
-  --accent:#D9532B; --accent-soft:#FBE7DF; --teal:#1F7A72; --teal-soft:#DDF0EE;
-  --warn:#B7791F; --warn-soft:#FBF0D9; --bad:#B42318; --bad-soft:#FDE4E1; --good:#1E7B45; --good-soft:#DFF3E6;
-  --display:"Manrope",system-ui,sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --bg:#FFFFFF; --surface:#FFFFFF; --soft:#FAFAFA; --ink:#0A0A0A; --muted:#666666; --line:#EAEAEA;
+  --accent:#0070F3; --accent-soft:#EAF2FF; --dark:#0A0A0A; --dark-2:#111111; --dark-line:#262626; --dark-muted:#A1A1A1;
+  --good:#16794A; --good-soft:#E6F6EC; --warn:#0058C4; --warn-soft:#EAF2FF; --bad:#D93036; --bad-soft:#FDECEC;
+  --sans:"Geist",system-ui,-apple-system,sans-serif; --mono:"Geist Mono",ui-monospace,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0F161D; --surface:#17212B; --ink:#E7EDF2; --muted:#9AA8B6; --line:#2A3846;
-  --accent:#F07A52; --accent-soft:#3A2219; --teal:#4FB8AD; --teal-soft:#14302D;
-  --warn:#E3B04B; --warn-soft:#352A12; --bad:#F2796D; --bad-soft:#3A1B18; --good:#5CC98A; --good-soft:#15301F; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0F161D; --surface:#17212B; --ink:#E7EDF2; --muted:#9AA8B6; --line:#2A3846;
-  --accent:#F07A52; --accent-soft:#3A2219; --teal:#4FB8AD; --teal-soft:#14302D;
-  --warn:#E3B04B; --warn-soft:#352A12; --bad:#F2796D; --bad-soft:#3A1B18; --good:#5CC98A; --good-soft:#15301F; color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0A0A0A;--surface:#111111;--soft:#0F0F0F;--ink:#EDEDED;--muted:#A1A1A1;--line:#262626;--accent:#3291FF;--accent-soft:#0B2240;--good:#4CC38A;--good-soft:#0E2A1C;--warn:#5EA8FF;--warn-soft:#0B2240;--bad:#FF6166;--bad-soft:#3A1416;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0A0A0A;--surface:#111111;--soft:#0F0F0F;--ink:#EDEDED;--muted:#A1A1A1;--line:#262626;--accent:#3291FF;--accent-soft:#0B2240;--good:#4CC38A;--good-soft:#0E2A1C;--warn:#5EA8FF;--warn-soft:#0B2240;--bad:#FF6166;--bad-soft:#3A1416;color-scheme:dark}
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15.5px;line-height:1.6}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
-.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
-nav.top .wrap{display:flex;gap:4px;overflow-x:auto;padding-block:8px;scrollbar-width:none}
-nav.top a{flex:none;font-family:var(--mono);font-size:12.5px;color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:6px;white-space:nowrap}
-nav.top a:hover,nav.top a:focus-visible{background:var(--accent-soft);color:var(--ink);outline:none}
-header.hero{padding-block:56px 36px}
+html{scroll-padding-top:72px}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--dark)}
+a{color:inherit}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+/* progress + nav */
+.progress{position:fixed;left:0;top:env(safe-area-inset-top,0px);height:2px;width:100%;background:var(--accent);transform-origin:0 50%;transform:scaleX(var(--p,0));z-index:12}
+nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:11;background:rgba(10,10,10,.72);backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid rgba(255,255,255,.08);transition:background .4s var(--ease)}
+nav.top.light{background:color-mix(in srgb,var(--bg) 82%,transparent);border-bottom-color:var(--line)}
+nav.top .wrap{display:flex;gap:2px;align-items:center;overflow-x:auto;padding-block:10px;scrollbar-width:none}
+nav.top .brandmark{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#fff;margin-right:14px;white-space:nowrap;transition:color .4s}
+nav.top.light .brandmark{color:var(--ink)}
+nav.top a{flex:none;font-size:13px;color:#A1A1A1;text-decoration:none;padding:6px 10px;border-radius:999px;white-space:nowrap;transition:color .25s,background .25s}
+nav.top.light a{color:var(--muted)}
+nav.top a:hover{color:#fff}
+nav.top.light a:hover{color:var(--ink)}
+nav.top a.on{color:#fff;background:rgba(255,255,255,.1)}
+nav.top.light a.on{color:var(--ink);background:var(--soft);box-shadow:inset 0 0 0 1px var(--line)}
+nav.top a.cta{background:var(--accent);color:#fff;margin-left:auto}
+nav.top a:focus-visible,.tabs button:focus-visible,.copy:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* hero */
+.hero{position:relative;background:var(--dark);color:#EDEDED;overflow:hidden;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse 80% 70% at 50% 30%,#000 30%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse 80% 70% at 50% 30%,#000 30%,transparent 75%)}
+.hero::after{content:"";position:absolute;z-index:-1;width:720px;height:720px;left:var(--mx,60%);top:var(--my,20%);transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(0,112,243,.22),transparent 60%);transition:left .6s var(--ease),top .6s var(--ease);pointer-events:none}
+.hero-in{display:flex;gap:48px;align-items:flex-end;flex-wrap:wrap;padding-block:96px 64px}
+.hero-copy{flex:999 1 560px;min-width:0;display:flex;flex-direction:column;gap:22px}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
-h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.15;margin:0}
-h1{font-size:clamp(34px,6vw,58px);font-weight:800;letter-spacing:-.02em;margin-top:10px}
-h2{font-size:clamp(26px,3.6vw,36px);font-weight:800;letter-spacing:-.01em}
-h3{font-size:19px;font-weight:700;margin-bottom:8px}
-.lede{font-size:18px;color:var(--muted);max-width:68ch;margin-top:16px}
-.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:28px}
-.facts div{background:var(--surface);padding:14px 16px}
-.facts b{display:block;font-family:var(--display);font-size:22px;font-variant-numeric:tabular-nums}
-.facts span{font-size:12.5px;color:var(--muted)}
-section{padding-block:48px;border-top:1px solid var(--line)}
-.sec-head{display:flex;flex-direction:column;gap:6px;margin-bottom:24px}
-.sec-head p{color:var(--muted);max-width:70ch;margin:0}
-.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.hero .eyebrow{color:#A1A1A1}
+h1,h2,h3{font-family:var(--sans);text-wrap:balance;line-height:1.08;margin:0;letter-spacing:-.03em}
+h1{font-size:clamp(42px,6.2vw,82px);font-weight:600;letter-spacing:-.045em;line-height:.98}
+h1 .ln{display:block;overflow:hidden;padding-bottom:.06em}
+h1 .ln>span{display:inline-block}
+h1 .dim{color:#666}
+h2{font-size:clamp(30px,4vw,44px);font-weight:600}
+h3{font-size:18px;font-weight:600;letter-spacing:-.01em;margin-bottom:6px}
+.lede{font-size:clamp(17px,1.6vw,20px);color:#A1A1A1;max-width:52ch;margin:0}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-family:var(--mono);font-size:12px;padding:6px 12px;border-radius:999px;border:1px solid #2A2A2A;color:#EDEDED;background:rgba(255,255,255,.03)}
+.chip.blue{border-color:transparent;background:var(--accent);color:#fff}
+.badge{flex:1 1 260px;max-width:300px;background:#FAFAFA;color:#0A0A0A;border-radius:18px;overflow:hidden;transform:rotate(2deg);box-shadow:0 40px 80px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.1)}
+.badge .strap{height:10px;background:linear-gradient(90deg,#0070F3,#3291FF)}
+.badge .bd{padding:22px 24px 24px;display:flex;flex-direction:column;gap:4px}
+.badge .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#666}
+.badge .nm{font-size:30px;font-weight:600;letter-spacing:-.03em;line-height:1.05;margin:4px 0}
+.badge .cut{border-top:1px dashed #D4D4D4;margin:14px 0 10px}
+.badge .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.facts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid #1F1F1F}
+.facts div{padding:22px 16px 26px;border-right:1px dashed #262626;min-width:0}
+.facts div:first-child{padding-left:0}.facts div:last-child{border-right:none}
+.facts b{display:block;font-size:clamp(22px,2.6vw,30px);font-weight:600;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:#fff}
+.facts span{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#8F8F8F}
+@media (max-width:760px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}.facts div{padding-left:0;border-right:none;border-bottom:1px dashed #262626}}
+/* run of show */
+.ros{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.ros a{display:flex;flex-direction:column;gap:8px;padding:22px;border:1px solid var(--line);border-radius:16px;background:var(--surface);text-decoration:none;transition:transform .5s var(--ease),border-color .3s,box-shadow .5s var(--ease)}
+.ros a:hover{transform:translateY(-4px);border-color:var(--ink);box-shadow:0 20px 40px rgba(0,0,0,.08)}
+.ros a .t{font-size:22px;font-weight:600;letter-spacing:-.02em}
+.ros a .d{font-size:14px;color:var(--muted)}
+.ros a.dark{background:var(--dark);border-color:var(--dark);color:#EDEDED}.ros a.dark .d{color:#A1A1A1}.ros a.dark .eyebrow{color:#3291FF}
+/* sections */
+section{padding-block:96px;border-top:1px solid var(--line)}
+section.alt{background:var(--soft)}
+.sec-head{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;max-width:760px}
+.sec-head p{color:var(--muted);margin:0;font-size:17px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
 .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;min-width:0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;min-width:0;transition:border-color .3s,box-shadow .5s var(--ease)}
+.card:hover{border-color:color-mix(in srgb,var(--ink) 30%,var(--line))}
 .card p{margin:0 0 10px}.card p:last-child{margin-bottom:0}
 .card ul,.card ol{margin:0;padding-left:20px}.card li{margin-bottom:6px}
-.letter{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:24px;max-width:72ch;min-width:0}
-.letter .meta{font-family:var(--mono);font-size:12.5px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.letter p{margin:0 0 12px}
-.letter .opt{border-left:3px solid var(--teal);padding-left:12px}
-.letter .rec{border-left:3px solid var(--accent);padding-left:12px}
-.wc{font-family:var(--mono);font-size:12px;color:var(--teal);background:var(--teal-soft);padding:2px 8px;border-radius:99px}
-.pill{display:inline-block;font-family:var(--mono);font-size:11.5px;padding:2px 8px;border-radius:99px;white-space:nowrap;font-weight:500}
-.p-done{background:var(--good-soft);color:var(--good)} .p-prog{background:var(--teal-soft);color:var(--teal)}
+.letter{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:0;max-width:760px;min-width:0;overflow:hidden}
+.letter>*:not(.meta){margin-left:28px;margin-right:28px}
+.letter>p:first-of-type{margin-top:24px}
+.letter>p:last-child{margin-bottom:28px}
+.letter .meta{font-family:var(--mono);font-size:12px;color:var(--muted);background:var(--soft);border-bottom:1px solid var(--line);padding:14px 28px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.letter p{margin-top:0;margin-bottom:14px}
+.letter .opt{border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.letter .rec{border:2px solid var(--accent);border-radius:12px;padding:14px 16px;background:var(--accent-soft)}
+.wc{font-family:var(--mono);font-size:11.5px;color:var(--accent);background:var(--accent-soft);padding:3px 9px;border-radius:99px}
+.pill{display:inline-block;font-family:var(--mono);font-size:11px;padding:3px 9px;border-radius:99px;white-space:nowrap;font-weight:500}
+.p-done{background:var(--good-soft);color:var(--good)} .p-prog{background:var(--accent-soft);color:var(--accent)}
 .p-block{background:var(--bad-soft);color:var(--bad)} .p-wait{background:var(--warn-soft);color:var(--warn)}
-.p-todo{background:var(--bg);color:var(--muted);border:1px solid var(--line)} .p-appr{background:var(--accent-soft);color:var(--accent)}
-.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
-.tabs button{font-family:var(--mono);font-size:12.5px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:7px 12px;border-radius:8px;cursor:pointer}
-.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
-table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:760px}
-th{font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:0}
-td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.p-todo{background:var(--soft);color:var(--muted);border:1px solid var(--line)} .p-appr{background:var(--ink);color:var(--bg)}
+.tabs{position:relative;display:inline-flex;gap:2px;flex-wrap:wrap;margin-bottom:16px;padding:4px;border:1px solid var(--line);border-radius:12px;background:var(--soft)}
+.tabs button{position:relative;z-index:1;font-family:var(--sans);font-size:13px;border:0;background:transparent;color:var(--muted);padding:7px 12px;border-radius:8px;cursor:pointer;transition:color .25s}
+.tabs button[aria-selected="true"]{color:var(--ink);background:var(--surface);box-shadow:0 1px 2px rgba(0,0,0,.08),0 0 0 1px var(--line)}
+.panel{animation:panelIn .5s var(--ease)}
+@keyframes panelIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:760px}
+th{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:500;text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);background:var(--soft)}
+td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+tbody tr{transition:background .2s}tbody tr:hover{background:var(--soft)}
 tr:last-child td{border-bottom:none}
 td.num{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
-td.id{font-family:var(--mono);color:var(--muted);white-space:nowrap}
-tr.total td{font-weight:600;background:var(--bg)}
-.note{font-size:13px;color:var(--muted);margin-top:10px}
-.est{font-family:var(--mono);font-size:11px;color:var(--warn);background:var(--warn-soft);padding:1px 6px;border-radius:4px}
-.conf{font-family:var(--mono);font-size:11px;color:var(--good);background:var(--good-soft);padding:1px 6px;border-radius:4px}
-.timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
-.wk{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;min-width:0}
+td.id{font-family:var(--mono);color:var(--muted);white-space:nowrap;font-size:12.5px}
+tr.total td{font-weight:600;background:var(--soft)}
+.note{font-size:13.5px;color:var(--muted);margin-top:12px}
+.est{font-family:var(--mono);font-size:10.5px;color:var(--warn);background:var(--warn-soft);padding:2px 6px;border-radius:4px}
+.conf{font-family:var(--mono);font-size:10.5px;color:var(--good);background:var(--good-soft);padding:2px 6px;border-radius:4px}
+.timeline{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;padding-top:22px}
+.timeline::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--ink));transform-origin:0 50%;transform:scaleX(var(--line-p,1));transition:transform 1.4s var(--ease)}
+.wk{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;min-width:0}
 .wk.hot{border-color:var(--accent)}
-.wk h4{margin:0;font-family:var(--display);font-size:15px}
-.wk .d{font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:10px}
+.wk h4{margin:0;font-size:15px;font-weight:600;letter-spacing:-.01em}
+.wk .d{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-bottom:10px}
 .wk ul{margin:0;padding-left:18px;font-size:13.5px}.wk li{margin-bottom:5px}
 .risk{display:grid;grid-template-columns:auto 1fr;gap:14px}
-.risk .n{font-family:var(--display);font-weight:800;font-size:28px;color:var(--accent);line-height:1}
-dl.kv{display:grid;grid-template-columns:110px 1fr;gap:6px 12px;margin:10px 0 0;font-size:14px}
-dl.kv dt{font-family:var(--mono);font-size:12px;color:var(--muted);padding-top:2px}
+.risk .n{font-weight:600;font-size:30px;letter-spacing:-.03em;color:var(--accent);line-height:1}
+dl.kv{display:grid;grid-template-columns:96px 1fr;gap:8px 12px;margin:12px 0 0;font-size:14px}
+dl.kv dt{font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding-top:3px}
 dl.kv dd{margin:0}
-pre{font-family:var(--mono);font-size:12.5px;line-height:1.55;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:14px;overflow-x:auto;white-space:pre-wrap;margin:0}
-.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 20px}
-.flow span{font-family:var(--mono);font-size:12.5px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 12px}
+pre{font-family:var(--mono);font-size:12.5px;line-height:1.6;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:16px;overflow-x:auto;white-space:pre-wrap;margin:0;max-height:520px;overflow-y:auto}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 24px}
+.flow span{font-size:13px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 14px}
 .flow i{color:var(--muted);font-style:normal}
-.flow .h{border-color:var(--accent);background:var(--accent-soft)}
-.copy{font-family:var(--mono);font-size:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:6px;padding:4px 10px;cursor:pointer;float:right}
-footer{padding-block:40px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+.flow .h{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.copy{font-family:var(--sans);font-size:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:5px 12px;cursor:pointer;float:right}
+footer{background:var(--dark);color:#8F8F8F;padding-block:48px;font-size:13.5px}
+footer a{color:#EDEDED}
+/* motion */
+.js .rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0ms)}
+.js .rv.in{opacity:1;transform:none}
+.js .hero .ln>span{transform:translateY(105%);transition:transform 1.1s var(--ease);transition-delay:var(--d,0ms)}
+.js .hero.go .ln>span{transform:none}
+.js .hero .fade{opacity:0;transform:translateY(16px);transition:opacity 1s var(--ease),transform 1s var(--ease);transition-delay:var(--d,0ms)}
+.js .hero.go .fade{opacity:1;transform:none}
+.js .badge{opacity:0;transform:rotate(10deg) translateY(60px)}
+.js .hero.go .badge{opacity:1;transform:rotate(2deg);transition:opacity 1.2s var(--ease) .5s,transform 1.4s var(--ease) .5s}
+.js .timeline{--line-p:0}.js .timeline.in{--line-p:1}
+@media (prefers-reduced-motion:reduce){.js .rv,.js .hero .ln>span,.js .hero .fade,.js .badge{opacity:1!important;transform:none!important;transition:none!important}.badge{transform:rotate(2deg)!important}.progress{display:none}html{scroll-behavior:auto}}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+
+/* refinement: elegant, tech, ordered */
+h1{font-size:clamp(40px,5.4vw,70px)!important;font-weight:600;letter-spacing:-.045em;line-height:1.02}
+.hero-in{padding-block:104px 72px;align-items:stretch;gap:56px}
+.hero-copy{justify-content:flex-end;gap:20px}
+.hero::after{left:78%!important;top:0!important;width:900px;height:600px;background:radial-gradient(ellipse at center,rgba(0,112,243,.16),transparent 65%);transition:none}
+.spec{flex:1 1 320px;max-width:380px;align-self:flex-end;border:1px solid #262626;border-radius:12px;background:rgba(17,17,17,.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);overflow:hidden}
+.spec-h{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #262626;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8F8F8F}
+.spec .live{display:inline-flex;align-items:center;gap:6px;color:#4CC38A}.spec .live i{width:6px;height:6px;border-radius:50%;background:#4CC38A;box-shadow:0 0 0 3px rgba(76,195,138,.18)}
+.spec dl{margin:0}.spec dl div{display:grid;grid-template-columns:96px 1fr;gap:12px;padding:11px 16px;border-bottom:1px solid #1F1F1F;font-size:14px}
+.spec dl div:last-child{border-bottom:none}
+.spec dt{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#8F8F8F;padding-top:2px}.spec dd{margin:0;color:#EDEDED}
+section.alt{background:transparent}
+section{padding-block:88px}
+h2{font-size:clamp(26px,2.8vw,34px)}
+.sec-head p{font-size:15.5px}
+@media (min-width:1000px){
+  section:not(#ros)>.wrap{display:grid;grid-template-columns:260px minmax(0,1fr);column-gap:72px;row-gap:20px;align-items:start}
+  section:not(#ros)>.wrap>*{grid-column:2;min-width:0}
+  section:not(#ros)>.wrap>.sec-head{grid-column:1;grid-row:1/span 30;position:sticky;top:96px;margin-bottom:0}
+}
+.sec-head .eyebrow{display:flex;align-items:center;gap:10px}
+.sec-head .eyebrow::before{content:"";width:18px;height:1px;background:currentColor;opacity:.6}
+#ros .sec-head{max-width:none}
+.ros{grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.ros a{border:0;border-radius:0;border-right:1px solid var(--line);transition:background .3s}
+.ros a:last-child{border-right:0}
+.ros a:hover{transform:none;box-shadow:none;background:var(--soft)}
+.ros a.dark:hover{background:#171717}
+@media (max-width:900px){.ros{grid-template-columns:repeat(2,minmax(0,1fr))}.ros a:nth-child(2n){border-right:0}.ros a:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+@media (max-width:520px){.ros{grid-template-columns:1fr}.ros a{border-right:0;border-bottom:1px solid var(--line)}.ros a:last-child{border-bottom:0}}
+.card,.wk,.tbl,.letter{border-radius:12px}
+.card:hover{border-color:var(--line)}
+.risk .n{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--muted);border:1px solid var(--line);border-radius:6px;width:28px;height:28px;display:grid;place-items:center}
+.js .rv{transform:translateY(14px);transition-duration:.7s}
+
+#risks .grid3{grid-template-columns:1fr}
+@media (min-width:760px){#risks dl.kv{grid-template-rows:auto auto;grid-auto-flow:column;grid-template-columns:1.8fr 1fr 1.4fr;gap:6px 28px}}
+#read .grid3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+
 </style></head><body>
 
-<nav class="top" aria-label="Sections"><div class="wrap">
-<a href="#read">How I read it</a><a href="#plan">1.1 Plan</a><a href="#trackers">1.1 Trackers</a><a href="#status">1.2 Status</a><a href="#risks">1.3 Risks</a><a href="#reply">2.1 Founder</a><a href="#sponsor">2.2 Sponsor</a><a href="#headliner">2.3 Headliner</a><a href="#ai">3 AI workflow</a><a href="#assumptions">Assumptions</a><a href="#monday">First Monday</a><a href="hq/">Live hub ↗</a>
+<div class="progress" aria-hidden="true"></div>
+<nav class="top" id="topnav" aria-label="Sections"><div class="wrap">
+<span class="brandmark">Founders Summit · LA</span>
+<a href="#read">How I read it</a><a href="#plan">Plan</a><a href="#trackers">Trackers</a><a href="#status">Status</a><a href="#risks">Risks</a><a href="#reply">Reply to Anna</a><a href="#sponsor">Sponsor</a><a href="#headliner">Headliner</a><a href="#ai">AI workflow</a><a href="#assumptions">Assumptions</a><a href="#monday">First Monday</a><a class="cta" href="hq/">Live hub ↗</a>
 </div></nav>
 
-<div class="wrap">
-<header class="hero">
-  <div class="eyebrow">Trolley · Test A · Account Manager · Malena Kuipers</div>
-  <h1>Founders Summit, Los Angeles.<br>The account is mine.</h1>
-  <p class="lede">My takeover plan, live trackers, client messages and the AI workflow I would run every morning. Everything here is built from the scenario pack. Estimates are labeled <span class="est">EST</span>, confirmed facts <span class="conf">CONFIRMED</span>.</p>
-  <div class="facts">
-    <div><b>Dec 3–4</b><span>Event days (assumed)</span></div>
-    <div><b>250 / 260</b><span>Guests / venue capacity</span></div>
-    <div><b>$140,000</b><span>Total budget</span></div>
-    <div><b>$3,000</b><span>Contingency, about 2%</span></div>
-    <div><b>Nov 13</b><span>Headcount lock (internal)</span></div>
+<header class="hero" id="hero">
+  <div class="wrap">
+    <div class="hero-in">
+      <div class="hero-copy">
+        <div class="eyebrow fade" style="--d:0ms">Trolley · Account Manager · Test A</div>
+        <h1><span class="ln"><span style="--d:80ms">Founders Summit.</span></span><span class="ln"><span style="--d:200ms" class="dim">Account takeover plan.</span></span></h1>
+        <p class="lede fade" style="--d:420ms">Takeover plan, live trackers, client messages and the daily AI workflow. Built only from the scenario pack. Estimates are labeled <span class="est">EST</span>, confirmed facts <span class="conf">CONFIRMED</span>.</p>
+      </div>
+      <div class="spec fade" style="--d:520ms" aria-label="Account summary">
+        <div class="spec-h"><span>Account handover</span><span class="live"><i></i>Synced daily</span></div>
+        <dl>
+          <div><dt>Client</dt><dd>Anna, founder</dd></div>
+          <div><dt>Event</dt><dd>Founders Summit</dd></div>
+          <div><dt>Location</dt><dd>Los Angeles</dd></div>
+          <div><dt>Dates</dt><dd>Dec 3–4, 2026</dd></div>
+          <div><dt>Guests</dt><dd>250 of 260 capacity</dd></div>
+          <div><dt>Owner</dt><dd>Malena Kuipers, AM</dd></div>
+        </dl>
+      </div>
+    </div>
+    <div class="facts fade" style="--d:650ms">
+      <div><b data-count="140000" data-prefix="$">$140,000</b><span>Total budget</span></div>
+      <div><b data-count="3000" data-prefix="$">$3,000</b><span>Contingency · 2%</span></div>
+      <div><b>250 / 260</b><span>Guests / capacity</span></div>
+      <div><b>5 / 6</b><span>Speakers signed</span></div>
+      <div><b>Nov 13</b><span>Headcount lock</span></div>
+    </div>
   </div>
 </header>
 
-<section id="read">
+<section id="ros" class="alt" style="border-top:none">
+  <div class="wrap">
+    <div class="sec-head"><div class="eyebrow">Run of show</div><h2>Four parts, in the order I'd work them.</h2></div>
+    <div class="ros">
+      <a href="#plan"><span class="eyebrow">Part 01 · 45 min</span><span class="t">Take over the account</span><span class="d">Plan, live trackers, first status update, risks and handoff.</span></a>
+      <a href="#reply"><span class="eyebrow">Part 02 · 35 min</span><span class="t">Judgment under pressure</span><span class="d">Anna's request, the sponsor complaint, the headliner cancels.</span></a>
+      <a href="#ai"><span class="eyebrow">Part 03 · 20 min</span><span class="t">AI workflow</span><span class="d">Daily Pulse: real input, real output, human checks.</span></a>
+      <a href="hq/" class="dark"><span class="eyebrow">Live · Hub</span><span class="t">Founders Summit HQ</span><span class="d">Tasks, budget, invoices and comments, synced daily.</span></a>
+    </div>
+  </div>
+</section>
+
+<section id="read"><div class="wrap">
   <div class="sec-head"><div class="eyebrow">Before the first call</div><h2>How I read the situation</h2>
   <p>I had one hour before the founder call. Three things stood out, so that is where the hour went.</p></div>
   <div class="grid3">
@@ -117,9 +245,9 @@ footer{padding-block:40px;color:var(--muted);font-size:13px;border-top:1px solid
     <div class="card"><h3>There is almost no cushion</h3><p>$3,000 contingency is about 2% of budget. The founder's asks cost around $10,500. New spend needs a funding source, and the unsigned fourth sponsor is the obvious one.</p></div>
   </div>
   <p class="note">First hour: read the signed contracts (venue capacity and overtime clauses, catering change terms), built the headcount sheet, called AV and asked for backup quotes, then prepared two options for the founder.</p>
-</section>
+</div></section>
 
-<section id="plan">
+<section id="plan" class="alt"><div class="wrap">
   <div class="sec-head"><div class="eyebrow">Part 1.1</div><h2>One-page project plan</h2>
   <p>Goal: deliver a two-day, 250-guest Founders Summit on Dec 3–4 inside $140,000, with every sponsor deliverable met and zero surprises for the founder. Deadlines work back from the event date.</p></div>
 
@@ -153,9 +281,9 @@ footer{padding-block:40px;color:var(--muted);font-size:13px;border-top:1px solid
       <li>The founder gets a 3-line update every Monday and Thursday. I get a daily digest.</li>
       <li>Founder hears bad news from me first, with a plan.</li></ul></div>
   </div>
-</section>
+</div></section>
 
-<section id="trackers">
+<section id="trackers"><div class="wrap">
   <div class="sec-head"><div class="eyebrow">Part 1.1</div><h2>Live trackers</h2>
   <p>The shared source of truth is <a href="hq/" style="color:var(--accent);font-weight:600">Founders Summit HQ</a>, a live web hub. It updates every day from email, messages (Slack, WhatsApp, iMessage) and Granola meeting notes, shows budget, invoices and approvals as they change, and anyone with the link can leave a comment that comes straight to me. The Production Lead can open it and know where the account stands without asking me. Below is a snapshot of the same tabs.</p></div>
   <div class="tabs" role="tablist">
@@ -260,9 +388,9 @@ footer{padding-block:40px;color:var(--muted);font-size:13px;border-top:1px solid
     <tr><td>Sponsors</td><td>Deliverables and deadlines</td><td>Every 2 weeks; weekly from Nov 23</td><td>Email</td></tr>
     <tr><td>Everyone</td><td>Daily stand-up</td><td>Event week</td><td>Call</td></tr>
   </tbody></table></div></div>
-</section>
+</div></section>
 
-<section id="status">
+<section id="status" class="alt"><div class="wrap">
   <div class="sec-head"><div class="eyebrow">Part 1.2</div><h2>First client status update</h2><p>Ready to send. <span class="wc" id="wc-status"></span></p></div>
   <div class="letter" data-count="wc-status">
     <div class="meta"><span>To: Founder</span><span>Subject: Founders Summit · Monday status</span></div>
@@ -273,9 +401,9 @@ footer{padding-block:40px;color:var(--muted);font-size:13px;border-top:1px solid
     <p><b>Decisions I need:</b> Your call on the dinner, guest list and keynote by Thursday (two options in my next note), and AV approval, about $22,000, by Nov 10.</p>
     <p>Talk soon,<br>Malena</p>
   </div>
-</section>
+</div></section>
 
-<section id="risks">
+<section id="risks"><div class="wrap">
   <div class="sec-head"><div class="eyebrow">Part 1.3</div><h2>Three risks I watch first</h2></div>
   <div class="grid3">
     <div class="card risk"><div class="n">1</div><div><h3>Capacity and headcount</h3>
@@ -297,9 +425,9 @@ footer{padding-block:40px;color:var(--muted);font-size:13px;border-top:1px solid
     <p><b>What I need from you:</b> 20 minutes by Tuesday on what isn't written down: the sponsor deck promises (especially booth positions), the AV contact and where the headliner talks stand.</p>
     <p><b>What you can stop thinking about:</b> Everything else. You'll get a 3-line digest every Friday, and I'll only pull you in for sponsor or contract issues.</p>
   </div>
-</section>
+</div></section>
 
-<section id="reply">
+<section id="reply" class="alt"><div class="wrap">
   <div class="sec-head"><div class="eyebrow">Part 2.1</div><h2>Reply to the founder's request</h2><p>Protect the room, the budget and the relationship at the same time. <span class="wc" id="wc-reply"></span></p></div>
   <div class="letter" data-count="wc-reply">
     <div class="meta"><span>To: Founder</span><span>Re: VIP dinner, guest list, keynote</span></div>
@@ -311,9 +439,9 @@ footer{padding-block:40px;color:var(--muted);font-size:13px;border-top:1px solid
     <p><b>What I need by Thursday:</b> A or B, and your OK to pitch the sponsor. Then everything is confirmed by Friday.</p>
     <p>Malena</p>
   </div>
-</section>
+</div></section>
 
-<section id="sponsor">
+<section id="sponsor"><div class="wrap">
   <div class="sec-head"><div class="eyebrow">Part 2.2</div><h2>The sponsor complaint</h2><p><span class="wc" id="wc-sponsor"></span></p></div>
   <div class="letter" data-count="wc-sponsor">
     <p><b>1.</b> Within the hour, reply-all (founder copied): "Thanks for flagging this. You'll have a solution today. I'll call you at 3pm." No debate by email.</p>
@@ -322,9 +450,9 @@ footer{padding-block:40px;color:var(--muted);font-size:13px;border-top:1px solid
     <p><b>Who first:</b> the sponsor, to stop the escalation. Then the Production Lead.</p>
     <p><b>On the call:</b> "You were promised that spot, and it's on us to make it right. Here are two ways we can do that this week."</p>
   </div>
-</section>
+</div></section>
 
-<section id="headliner">
+<section id="headliner" class="alt"><div class="wrap">
   <div class="sec-head"><div class="eyebrow">Part 2.3</div><h2>The headliner cancels, 48 hours out</h2><p><span class="wc" id="wc-head"></span></p></div>
   <div class="letter" data-count="wc-head">
     <p><b>1.</b> Call the headliner's agent (15 minutes): is it final? Could they join by video or send a recorded talk? Check refund terms.</p>
@@ -333,9 +461,9 @@ footer{padding-block:40px;color:var(--muted);font-size:13px;border-top:1px solid
     <p><b>Sponsors:</b> I call both personally before any announcement. I offer an on-stage moment in the new headline session and extra visibility, then confirm in writing.</p>
     <p><b>Who first:</b> the agent, for facts. Then the founder.</p>
   </div>
-</section>
+</div></section>
 
-<section id="ai">
+<section id="ai"><div class="wrap">
   <div class="sec-head"><div class="eyebrow">Part 3</div><h2>AI workflow: Daily Pulse</h2>
   <p>The one I would actually use. Every morning it reads new emails, messages (Slack, WhatsApp, iMessage) and Granola meeting notes, plus the hub tracker. It flags blockers, overdue items and unapproved spend, and sends me a daily digest. On Mondays and Thursdays it also drafts the 3-line founder update, and on Fridays the Production Lead digest. Nobody has to chase me, and I don't have to chase anyone.</p></div>
 
@@ -360,9 +488,9 @@ footer{padding-block:40px;color:var(--muted);font-size:13px;border-top:1px solid
     <li>Anything it can't find shows as "UNKNOWN - check" instead of a guess, and it lists what it was unsure about at the end.</li>
     <li>Money and dates are checked against the Budget tab by me, every time.</li>
     <li>Each week I note what I had to edit. If the same fix repeats, I update the instructions.</li></ul></div>
-</section>
+</div></section>
 
-<section id="assumptions">
+<section id="assumptions" class="alt"><div class="wrap">
   <div class="sec-head"><div class="eyebrow">Notes</div><h2>Assumptions and decisions</h2><p>The pack is incomplete by design. This is what I assumed, why, and how sure I am.</p></div>
   <div class="tbl"><table>
     <thead><tr><th>Assumption / decision</th><th>Why</th><th>Type</th></tr></thead><tbody>
@@ -381,9 +509,9 @@ footer{padding-block:40px;color:var(--muted);font-size:13px;border-top:1px solid
     <tr><td>Client team owns the guest list and registration</td><td>Usual split; Trolley owns production</td><td><span class="est">ASSUMED</span></td></tr>
     <tr><td>Thanksgiving (Nov 26–27) slows vendors</td><td>US holiday; I plan all confirmations by Nov 24</td><td><span class="conf">FACT</span></td></tr>
   </tbody></table></div>
-</section>
+</div></section>
 
-<section id="monday">
+<section id="monday"><div class="wrap">
   <div class="sec-head"><div class="eyebrow">What the test couldn't show</div><h2>My first Monday</h2></div>
   <div class="grid2">
     <div class="card"><ol>
@@ -394,13 +522,12 @@ footer{padding-block:40px;color:var(--muted);font-size:13px;border-top:1px solid
       <li>Afternoon · Site visit at the venue to walk the floor plan and stage with my own eyes.</li></ol></div>
     <div class="card"><h3>Why this approach</h3><p>I've run events with fixed dates and fixed budgets before, like the FIFA Tech Summit U20 and the AFA Trophy Tour at Globant, and I teach Corporate Event Management in English at UADE. What I learned: the client remembers how calm you were and how early they heard about a problem, more than the problem itself.</p></div>
   </div>
-</section>
+</div></section>
 
-<section id="tools">
+<section id="tools" class="alt"><div class="wrap">
   <div class="sec-head"><div class="eyebrow">AI use</div><h2>How I used AI</h2></div>
   <div class="card"><p>I used Claude to structure the tracker, check word limits, pressure-test the budget math and run the Daily Pulse workflow on the scenario pack. The calls are mine: holding the room at 250, funding the dinner through the fourth sponsor, and contacting the sponsor before anyone else.</p></div>
-</section>
-</div>
+</div></section>
 <footer><div class="wrap"><p style="margin:0 0 8px"><a href="hq/">Founders Summit HQ (live hub)</a> · <a href="files/Assumptions_Notes_Malena_Kuipers.pdf">Assumptions notes (PDF)</a> · <a href="files/Founders_Summit_Tracker.xlsx">Tracker export (Excel)</a></p>Malena Kuipers · Trolley Account Manager assessment, Test A · Built from the scenario pack only. Fictional scenario.</div></footer>
 
 <script>
@@ -423,5 +550,36 @@ document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
 <script>
 try{const d=JSON.parse(document.getElementById('wfdata').textContent);
 ['prompt','input','output'].forEach(k=>{document.getElementById(k).textContent=d[k]})}catch(e){}
+</script>
+<script>
+(function(){
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hero=document.getElementById('hero'),nav=document.getElementById('topnav'),bar=document.querySelector('.progress');
+  requestAnimationFrame(function(){requestAnimationFrame(function(){hero&&hero.classList.add('go');countUp()})});
+  function countUp(){document.querySelectorAll('[data-count]').forEach(function(el){
+    var end=+el.dataset.count,pre=el.dataset.prefix||'',t0=null,dur=reduce?0:1400;
+    function f(t){if(!t0)t0=t;var k=dur?Math.min(1,(t-t0)/dur):1;k=1-Math.pow(1-k,4);el.textContent=pre+Math.round(end*k).toLocaleString('en-US');if(k<1)requestAnimationFrame(f)}
+    setTimeout(function(){requestAnimationFrame(f)},650)})}
+  var sel='.sec-head,.card,.letter,.wk,.tbl,.ros a,.flow,.timeline,.tabs,.note';
+  var els=[].slice.call(document.querySelectorAll(sel)).filter(function(e){return !e.closest('.hero')&&!e.closest('.panel')&&!e.parentElement.closest('.card,.letter,.tbl')});
+  els.forEach(function(e){e.classList.add('rv');var sib=[].filter.call(e.parentElement.children,function(c){return c.matches(sel)});var i=sib.indexOf(e);e.style.setProperty('--d',Math.min(i*80,480)+'ms')});
+  if('IntersectionObserver' in window&&!reduce){
+    var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{rootMargin:'0px 0px -8% 0px',threshold:.08});
+    els.forEach(function(e){io.observe(e)});
+  } else els.forEach(function(e){e.classList.add('in')});
+  var links={};document.querySelectorAll('nav.top a[href^="#"]').forEach(function(a){links[a.getAttribute('href').slice(1)]=a});
+  if('IntersectionObserver' in window){
+    var spy=new IntersectionObserver(function(en){en.forEach(function(x){var a=links[x.target.id];if(!a)return;if(x.isIntersecting){Object.keys(links).forEach(function(k){links[k].classList.remove('on')});a.classList.add('on');try{a.scrollIntoView({block:'nearest',inline:'center',behavior:reduce?'auto':'smooth'})}catch(e){}}})},{rootMargin:'-45% 0px -50% 0px'});
+    document.querySelectorAll('section[id]').forEach(function(s){spy.observe(s)});
+  }
+  var ticking=false;
+  function onScroll(){if(ticking)return;ticking=true;requestAnimationFrame(function(){
+    var h=document.documentElement,p=h.scrollTop/((h.scrollHeight-h.clientHeight)||1);
+    if(bar)bar.style.setProperty('--p',p.toFixed(4));
+    if(nav&&hero)nav.classList.toggle('light',hero.getBoundingClientRect().bottom<60);
+    ticking=false})}
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+  if(hero&&!reduce&&matchMedia('(pointer:fine)').matches){hero.addEventListener('pointermove',function(e){var r=hero.getBoundingClientRect();hero.style.setProperty('--mx',(e.clientX-r.left)+'px');hero.style.setProperty('--my',(e.clientY-r.top)+'px')})}
+})();
 </script>
 </body></html>
