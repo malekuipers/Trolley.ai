@@ -1,0 +1,546 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style><title>Founders Summit Takeover</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<script>document.documentElement.classList.add("js")</script>
+<style>
+/* Layout: Vercel-style monochrome. Dark grid hero, light content, one blue accent. Sections reveal on scroll. */
+:root{
+  --bg:#FFFFFF; --surface:#FFFFFF; --soft:#FAFAFA; --ink:#0A0A0A; --muted:#666666; --line:#EAEAEA;
+  --accent:#0070F3; --accent-soft:#EAF2FF; --dark:#0A0A0A; --dark-2:#111111; --dark-line:#262626; --dark-muted:#A1A1A1;
+  --good:#16794A; --good-soft:#E6F6EC; --warn:#0058C4; --warn-soft:#EAF2FF; --bad:#D93036; --bad-soft:#FDECEC;
+  --sans:"Geist",system-ui,-apple-system,sans-serif; --mono:"Geist Mono",ui-monospace,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0A0A0A;--surface:#111111;--soft:#0F0F0F;--ink:#EDEDED;--muted:#A1A1A1;--line:#262626;--accent:#3291FF;--accent-soft:#0B2240;--good:#4CC38A;--good-soft:#0E2A1C;--warn:#5EA8FF;--warn-soft:#0B2240;--bad:#FF6166;--bad-soft:#3A1416;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0A0A0A;--surface:#111111;--soft:#0F0F0F;--ink:#EDEDED;--muted:#A1A1A1;--line:#262626;--accent:#3291FF;--accent-soft:#0B2240;--good:#4CC38A;--good-soft:#0E2A1C;--warn:#5EA8FF;--warn-soft:#0B2240;--bad:#FF6166;--bad-soft:#3A1416;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:72px}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--dark)}
+a{color:inherit}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+/* progress + nav */
+.progress{position:fixed;left:0;top:env(safe-area-inset-top,0px);height:2px;width:100%;background:var(--accent);transform-origin:0 50%;transform:scaleX(var(--p,0));z-index:12}
+nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:11;background:rgba(10,10,10,.72);backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid rgba(255,255,255,.08);transition:background .4s var(--ease)}
+nav.top.light{background:color-mix(in srgb,var(--bg) 82%,transparent);border-bottom-color:var(--line)}
+nav.top .wrap{display:flex;gap:2px;align-items:center;overflow-x:auto;padding-block:10px;scrollbar-width:none}
+nav.top .brandmark{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#fff;margin-right:14px;white-space:nowrap;transition:color .4s}
+nav.top.light .brandmark{color:var(--ink)}
+nav.top a{flex:none;font-size:13px;color:#A1A1A1;text-decoration:none;padding:6px 10px;border-radius:999px;white-space:nowrap;transition:color .25s,background .25s}
+nav.top.light a{color:var(--muted)}
+nav.top a:hover{color:#fff}
+nav.top.light a:hover{color:var(--ink)}
+nav.top a.on{color:#fff;background:rgba(255,255,255,.1)}
+nav.top.light a.on{color:var(--ink);background:var(--soft);box-shadow:inset 0 0 0 1px var(--line)}
+nav.top a.cta{background:var(--accent);color:#fff;margin-left:auto}
+nav.top a:focus-visible,.tabs button:focus-visible,.copy:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* hero */
+.hero{position:relative;background:var(--dark);color:#EDEDED;overflow:hidden;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse 80% 70% at 50% 30%,#000 30%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse 80% 70% at 50% 30%,#000 30%,transparent 75%)}
+.hero::after{content:"";position:absolute;z-index:-1;width:720px;height:720px;left:var(--mx,60%);top:var(--my,20%);transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(0,112,243,.22),transparent 60%);transition:left .6s var(--ease),top .6s var(--ease);pointer-events:none}
+.hero-in{display:flex;gap:48px;align-items:flex-end;flex-wrap:wrap;padding-block:96px 64px}
+.hero-copy{flex:999 1 560px;min-width:0;display:flex;flex-direction:column;gap:22px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.hero .eyebrow{color:#A1A1A1}
+h1,h2,h3{font-family:var(--sans);text-wrap:balance;line-height:1.08;margin:0;letter-spacing:-.03em}
+h1{font-size:clamp(42px,6.2vw,82px);font-weight:600;letter-spacing:-.045em;line-height:.98}
+h1 .ln{display:block;overflow:hidden;padding-bottom:.06em}
+h1 .ln>span{display:inline-block}
+h1 .dim{color:#666}
+h2{font-size:clamp(30px,4vw,44px);font-weight:600}
+h3{font-size:18px;font-weight:600;letter-spacing:-.01em;margin-bottom:6px}
+.lede{font-size:clamp(17px,1.6vw,20px);color:#A1A1A1;max-width:52ch;margin:0}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-family:var(--mono);font-size:12px;padding:6px 12px;border-radius:999px;border:1px solid #2A2A2A;color:#EDEDED;background:rgba(255,255,255,.03)}
+.chip.blue{border-color:transparent;background:var(--accent);color:#fff}
+.badge{flex:1 1 260px;max-width:300px;background:#FAFAFA;color:#0A0A0A;border-radius:18px;overflow:hidden;transform:rotate(2deg);box-shadow:0 40px 80px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.1)}
+.badge .strap{height:10px;background:linear-gradient(90deg,#0070F3,#3291FF)}
+.badge .bd{padding:22px 24px 24px;display:flex;flex-direction:column;gap:4px}
+.badge .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#666}
+.badge .nm{font-size:30px;font-weight:600;letter-spacing:-.03em;line-height:1.05;margin:4px 0}
+.badge .cut{border-top:1px dashed #D4D4D4;margin:14px 0 10px}
+.badge .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.facts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid #1F1F1F}
+.facts div{padding:22px 16px 26px;border-right:1px dashed #262626;min-width:0}
+.facts div:first-child{padding-left:0}.facts div:last-child{border-right:none}
+.facts b{display:block;font-size:clamp(22px,2.6vw,30px);font-weight:600;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:#fff}
+.facts span{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#8F8F8F}
+@media (max-width:760px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}.facts div{padding-left:0;border-right:none;border-bottom:1px dashed #262626}}
+/* run of show */
+.ros{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.ros a{display:flex;flex-direction:column;gap:8px;padding:22px;border:1px solid var(--line);border-radius:16px;background:var(--surface);text-decoration:none;transition:transform .5s var(--ease),border-color .3s,box-shadow .5s var(--ease)}
+.ros a:hover{transform:translateY(-4px);border-color:var(--ink);box-shadow:0 20px 40px rgba(0,0,0,.08)}
+.ros a .t{font-size:22px;font-weight:600;letter-spacing:-.02em}
+.ros a .d{font-size:14px;color:var(--muted)}
+.ros a.dark{background:var(--dark);border-color:var(--dark);color:#EDEDED}.ros a.dark .d{color:#A1A1A1}.ros a.dark .eyebrow{color:#3291FF}
+/* sections */
+section{padding-block:96px;border-top:1px solid var(--line)}
+section.alt{background:var(--soft)}
+.sec-head{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;max-width:760px}
+.sec-head p{color:var(--muted);margin:0;font-size:17px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;min-width:0;transition:border-color .3s,box-shadow .5s var(--ease)}
+.card:hover{border-color:color-mix(in srgb,var(--ink) 30%,var(--line))}
+.card p{margin:0 0 10px}.card p:last-child{margin-bottom:0}
+.card ul,.card ol{margin:0;padding-left:20px}.card li{margin-bottom:6px}
+.letter{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:0;max-width:760px;min-width:0;overflow:hidden}
+.letter>*:not(.meta){margin-left:28px;margin-right:28px}
+.letter>p:first-of-type{margin-top:24px}
+.letter>p:last-child{margin-bottom:28px}
+.letter .meta{font-family:var(--mono);font-size:12px;color:var(--muted);background:var(--soft);border-bottom:1px solid var(--line);padding:14px 28px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.letter p{margin-top:0;margin-bottom:14px}
+.letter .opt{border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.letter .rec{border:2px solid var(--accent);border-radius:12px;padding:14px 16px;background:var(--accent-soft)}
+.wc{font-family:var(--mono);font-size:11.5px;color:var(--accent);background:var(--accent-soft);padding:3px 9px;border-radius:99px}
+.pill{display:inline-block;font-family:var(--mono);font-size:11px;padding:3px 9px;border-radius:99px;white-space:nowrap;font-weight:500}
+.p-done{background:var(--good-soft);color:var(--good)} .p-prog{background:var(--accent-soft);color:var(--accent)}
+.p-block{background:var(--bad-soft);color:var(--bad)} .p-wait{background:var(--warn-soft);color:var(--warn)}
+.p-todo{background:var(--soft);color:var(--muted);border:1px solid var(--line)} .p-appr{background:var(--ink);color:var(--bg)}
+.tabs{position:relative;display:inline-flex;gap:2px;flex-wrap:wrap;margin-bottom:16px;padding:4px;border:1px solid var(--line);border-radius:12px;background:var(--soft)}
+.tabs button{position:relative;z-index:1;font-family:var(--sans);font-size:13px;border:0;background:transparent;color:var(--muted);padding:7px 12px;border-radius:8px;cursor:pointer;transition:color .25s}
+.tabs button[aria-selected="true"]{color:var(--ink);background:var(--surface);box-shadow:0 1px 2px rgba(0,0,0,.08),0 0 0 1px var(--line)}
+.panel{animation:panelIn .5s var(--ease)}
+@keyframes panelIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:760px}
+th{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:500;text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);background:var(--soft)}
+td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+tbody tr{transition:background .2s}tbody tr:hover{background:var(--soft)}
+tr:last-child td{border-bottom:none}
+td.num{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+td.id{font-family:var(--mono);color:var(--muted);white-space:nowrap;font-size:12.5px}
+tr.total td{font-weight:600;background:var(--soft)}
+.note{font-size:13.5px;color:var(--muted);margin-top:12px}
+.est{font-family:var(--mono);font-size:10.5px;color:var(--warn);background:var(--warn-soft);padding:2px 6px;border-radius:4px}
+.conf{font-family:var(--mono);font-size:10.5px;color:var(--good);background:var(--good-soft);padding:2px 6px;border-radius:4px}
+.timeline{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;padding-top:22px}
+.timeline::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--ink));transform-origin:0 50%;transform:scaleX(var(--line-p,1));transition:transform 1.4s var(--ease)}
+.wk{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;min-width:0}
+.wk.hot{border-color:var(--accent)}
+.wk h4{margin:0;font-size:15px;font-weight:600;letter-spacing:-.01em}
+.wk .d{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-bottom:10px}
+.wk ul{margin:0;padding-left:18px;font-size:13.5px}.wk li{margin-bottom:5px}
+.risk{display:grid;grid-template-columns:auto 1fr;gap:14px}
+.risk .n{font-weight:600;font-size:30px;letter-spacing:-.03em;color:var(--accent);line-height:1}
+dl.kv{display:grid;grid-template-columns:96px 1fr;gap:8px 12px;margin:12px 0 0;font-size:14px}
+dl.kv dt{font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+dl.kv dd{margin:0}
+pre{font-family:var(--mono);font-size:12.5px;line-height:1.6;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:16px;overflow-x:auto;white-space:pre-wrap;margin:0;max-height:520px;overflow-y:auto}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 24px}
+.flow span{font-size:13px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 14px}
+.flow i{color:var(--muted);font-style:normal}
+.flow .h{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.copy{font-family:var(--sans);font-size:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:5px 12px;cursor:pointer;float:right}
+footer{background:var(--dark);color:#8F8F8F;padding-block:48px;font-size:13.5px}
+footer a{color:#EDEDED}
+/* motion */
+.js .rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0ms)}
+.js .rv.in{opacity:1;transform:none}
+.js .hero .ln>span{transform:translateY(105%);transition:transform 1.1s var(--ease);transition-delay:var(--d,0ms)}
+.js .hero.go .ln>span{transform:none}
+.js .hero .fade{opacity:0;transform:translateY(16px);transition:opacity 1s var(--ease),transform 1s var(--ease);transition-delay:var(--d,0ms)}
+.js .hero.go .fade{opacity:1;transform:none}
+.js .badge{opacity:0;transform:rotate(10deg) translateY(60px)}
+.js .hero.go .badge{opacity:1;transform:rotate(2deg);transition:opacity 1.2s var(--ease) .5s,transform 1.4s var(--ease) .5s}
+.js .timeline{--line-p:0}.js .timeline.in{--line-p:1}
+@media (prefers-reduced-motion:reduce){.js .rv,.js .hero .ln>span,.js .hero .fade,.js .badge{opacity:1!important;transform:none!important;transition:none!important}.badge{transform:rotate(2deg)!important}.progress{display:none}html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+
+</style></head><body>
+
+<div class="progress" aria-hidden="true"></div>
+<nav class="top" id="topnav" aria-label="Sections"><div class="wrap">
+<span class="brandmark">Founders Summit · LA</span>
+<a href="#read">How I read it</a><a href="#plan">Plan</a><a href="#trackers">Trackers</a><a href="#status">Status</a><a href="#risks">Risks</a><a href="#reply">Reply to Anna</a><a href="#sponsor">Sponsor</a><a href="#headliner">Headliner</a><a href="#ai">AI workflow</a><a href="#assumptions">Assumptions</a><a href="#monday">First Monday</a><a class="cta" href="hq/">Live hub ↗</a>
+</div></nav>
+
+<header class="hero" id="hero">
+  <div class="wrap">
+    <div class="hero-in">
+      <div class="hero-copy">
+        <div class="eyebrow fade" style="--d:0ms">Trolley · Account Manager · Test A</div>
+        <h1><span class="ln"><span style="--d:80ms">Founders Summit,</span></span><span class="ln"><span style="--d:180ms" class="dim">Los Angeles.</span></span><span class="ln"><span style="--d:280ms">The account is mine.</span></span></h1>
+        <p class="lede fade" style="--d:420ms">My takeover plan, live trackers, client messages and the AI workflow I would run every morning. Built only from the scenario pack. Estimates are labeled <span class="est">EST</span>, confirmed facts <span class="conf">CONFIRMED</span>.</p>
+        <div class="chips fade" style="--d:520ms"><span class="chip">Dec 3–4, 2026</span><span class="chip">250 guests</span><span class="chip">$140,000</span><span class="chip blue">5 weeks out</span></div>
+      </div>
+      <div class="badge" aria-label="Account Manager badge: Malena Kuipers">
+        <div class="strap"></div>
+        <div class="bd">
+          <span class="k">Account Manager</span>
+          <span class="nm">Malena<br>Kuipers</span>
+          <span style="font-size:14px;color:#666">Owner · Founders Summit</span>
+          <div class="cut"></div>
+          <div class="row"><div><div class="k">Access</div><div style="font-weight:600">All areas</div></div><div><div class="k">Client</div><div style="font-weight:600">Anna</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="facts fade" style="--d:650ms">
+      <div><b data-count="140000" data-prefix="$">$140,000</b><span>Total budget</span></div>
+      <div><b data-count="3000" data-prefix="$">$3,000</b><span>Contingency · 2%</span></div>
+      <div><b>250 / 260</b><span>Guests / capacity</span></div>
+      <div><b>5 / 6</b><span>Speakers signed</span></div>
+      <div><b>Nov 13</b><span>Headcount lock</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="ros" class="alt" style="border-top:none">
+  <div class="wrap">
+    <div class="sec-head"><div class="eyebrow">Run of show</div><h2>Four parts, in the order I'd work them.</h2></div>
+    <div class="ros">
+      <a href="#plan"><span class="eyebrow">Part 01 · 45 min</span><span class="t">Take over the account</span><span class="d">Plan, live trackers, first status update, risks and handoff.</span></a>
+      <a href="#reply"><span class="eyebrow">Part 02 · 35 min</span><span class="t">Judgment under pressure</span><span class="d">Anna's request, the sponsor complaint, the headliner cancels.</span></a>
+      <a href="#ai"><span class="eyebrow">Part 03 · 20 min</span><span class="t">AI workflow</span><span class="d">Daily Pulse: real input, real output, human checks.</span></a>
+      <a href="hq/" class="dark"><span class="eyebrow">Live · Hub</span><span class="t">Founders Summit HQ</span><span class="d">Tasks, budget, invoices and comments, synced daily.</span></a>
+    </div>
+  </div>
+</section>
+
+<section id="read"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">Before the first call</div><h2>How I read the situation</h2>
+  <p>I had one hour before the founder call. Three things stood out, so that is where the hour went.</p></div>
+  <div class="grid3">
+    <div class="card"><h3>The request breaks the room</h3><p>300 guests can't fit a 260-person venue. If 260 is total occupancy, 250 guests plus speakers, sponsor teams and crew may already be over the limit. Catering locks in 14 days.</p></div>
+    <div class="card"><h3>AV is the critical gap</h3><p>$22,000 is the largest unbooked line. No reply in 6 days, and Thanksgiving week cuts our real runway to about 4 weeks. Stage, floor plan and keynote timing all depend on it.</p></div>
+    <div class="card"><h3>There is almost no cushion</h3><p>$3,000 contingency is about 2% of budget. The founder's asks cost around $10,500. New spend needs a funding source, and the unsigned fourth sponsor is the obvious one.</p></div>
+  </div>
+  <p class="note">First hour: read the signed contracts (venue capacity and overtime clauses, catering change terms), built the headcount sheet, called AV and asked for backup quotes, then prepared two options for the founder.</p>
+</div></section>
+
+<section id="plan" class="alt"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">Part 1.1</div><h2>One-page project plan</h2>
+  <p>Goal: deliver a two-day, 250-guest Founders Summit on Dec 3–4 inside $140,000, with every sponsor deliverable met and zero surprises for the founder. Deadlines work back from the event date.</p></div>
+
+  <div class="timeline">
+    <div class="wk hot"><h4>Week 1 · Take over</h4><div class="d">Nov 2–6</div><ul>
+      <li>Founder intro call; options sent (decision Thu Nov 5)</li><li>AV vendor called + 2 backup quotes</li><li>Venue confirms what 260 includes</li><li>Headliner + Sponsor 4 contracts sent</li><li>Sponsor deck from Production Lead</li></ul></div>
+    <div class="wk"><h4>Week 2 · Lock vendors</h4><div class="d">Nov 9–13</div><ul>
+      <li>AV booked, founder approved (Nov 10)</li><li>Floor plan v1 with booths (Nov 10)</li><li>Photo/video + decor booked (Nov 11)</li><li>Headcount to caterer (Nov 13)</li><li>Headliner + Sponsor 4 signed (Nov 13)</li></ul></div>
+    <div class="wk"><h4>Week 3 · Build</h4><div class="d">Nov 16–20</div><ul>
+      <li>Run of show v1 (Nov 17)</li><li>Speaker travel booked (Nov 18)</li><li>Sponsor assets + booth specs (Nov 18)</li><li>Decor in production</li><li>Guest "know before you go" (Nov 20)</li></ul></div>
+    <div class="wk"><h4>Week 4 · Short week</h4><div class="d">Nov 23–25 · Thanksgiving Nov 26–27</div><ul>
+      <li>Final run of show + scripts (Nov 24)</li><li>All vendor confirmations + payments (Nov 24)</li><li>Staffing plan, radios, signage (Nov 25)</li></ul></div>
+    <div class="wk hot"><h4>Week 5 · Show</h4><div class="d">Nov 30–Dec 4</div><ul>
+      <li>Venue walkthrough (Nov 30)</li><li>Load-in + tech rehearsal (Dec 2)</li><li>Day 1 + VIP dinner (Dec 3)</li><li>Day 2 (Dec 4)</li></ul></div>
+    <div class="wk"><h4>Wrap</h4><div class="d">Dec 7–11</div><ul>
+      <li>Photo delivery (Dec 9)</li><li>Sponsor recap reports (Dec 11)</li><li>Invoices + budget close (Dec 11)</li></ul></div>
+  </div>
+
+  <div class="grid2" style="margin-top:20px">
+    <div class="card"><h3>Owners</h3><dl class="kv">
+      <dt>Malena (AM)</dt><dd>Single owner for every workstream, founder comms, budget, vendors, sponsors, speakers</dd>
+      <dt>Founder</dt><dd>Decisions and any spend above $5,000</dd>
+      <dt>Client team</dt><dd>Guest list and registration (assumed)</dd>
+      <dt>Vendors</dt><dd>Execution: venue, caterer, AV, decor, photo/video</dd>
+      <dt>Prod. Lead</dt><dd>Consulted only: sponsor deck history, contract escalations</dd></dl></div>
+    <div class="card"><h3>Rules I run the account by</h3><ul>
+      <li>Anything above $5,000 goes to the founder with two options and a recommendation.</li>
+      <li>Contingency is not spent without founder OK.</li>
+      <li>Nothing is announced until it is signed.</li>
+      <li>Every item has one owner, one due date and one next step.</li>
+      <li>The founder gets a 3-line update every Monday and Thursday. I get a daily digest.</li>
+      <li>Founder hears bad news from me first, with a plan.</li></ul></div>
+  </div>
+</div></section>
+
+<section id="trackers"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">Part 1.1</div><h2>Live trackers</h2>
+  <p>The shared source of truth is <a href="hq/" style="color:var(--accent);font-weight:600">Founders Summit HQ</a>, a live web hub. It updates every day from email, messages (Slack, WhatsApp, iMessage) and Granola meeting notes, shows budget, invoices and approvals as they change, and anyone with the link can leave a comment that comes straight to me. The Production Lead can open it and know where the account stands without asking me. Below is a snapshot of the same tabs.</p></div>
+  <div class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-tab="t-tasks">Tasks</button>
+    <button role="tab" aria-selected="false" data-tab="t-budget">Budget</button>
+    <button role="tab" aria-selected="false" data-tab="t-appr">Approvals &amp; decisions</button>
+    <button role="tab" aria-selected="false" data-tab="t-head">Headcount</button>
+    <button role="tab" aria-selected="false" data-tab="t-spon">Sponsors</button>
+    <button role="tab" aria-selected="false" data-tab="t-spk">Speakers</button>
+    <button role="tab" aria-selected="false" data-tab="t-risk">Risk register</button>
+    <button role="tab" aria-selected="false" data-tab="t-comms">Comms cadence</button>
+  </div>
+
+  <div id="t-tasks" class="panel"><div class="tbl"><table>
+    <thead><tr><th>ID</th><th>Workstream</th><th>Item</th><th>Owner</th><th>Due</th><th>Status</th><th>Depends on</th><th>Next step</th></tr></thead><tbody>
+    <tr><td class="id">T01</td><td>Venue</td><td>Venue contract</td><td>Malena</td><td>Signed</td><td><span class="pill p-done">Done</span></td><td>–</td><td>Venue confirms in writing what 260 includes (by Nov 4)</td></tr>
+    <tr><td class="id">T02</td><td>Catering</td><td>Catering contract</td><td>Malena</td><td>Signed</td><td><span class="pill p-done">Done</span></td><td>–</td><td>Check change terms and per-head cost</td></tr>
+    <tr><td class="id">T03</td><td>Catering</td><td>Final headcount to caterer</td><td>Malena</td><td>Nov 13</td><td><span class="pill p-todo">Not started</span></td><td>T01, T10</td><td>Build headcount sheet (all people in room)</td></tr>
+    <tr><td class="id">T04</td><td>AV &amp; stage</td><td>AV quote and booking</td><td>Malena</td><td>Nov 10</td><td><span class="pill p-block">Blocked</span></td><td>–</td><td>Call vendor Mon 9am; 2 backup quotes by Wed</td></tr>
+    <tr><td class="id">T05</td><td>Speakers</td><td>Headliner contract</td><td>Malena</td><td>Nov 13</td><td><span class="pill p-prog">In progress</span></td><td>–</td><td>Send contract with deadline; shortlist 3 backups</td></tr>
+    <tr><td class="id">T06</td><td>Speakers</td><td>Travel for 6 speakers</td><td>Malena</td><td>Nov 18</td><td><span class="pill p-todo">Not started</span></td><td>T13</td><td>Collect travel details from 5 confirmed</td></tr>
+    <tr><td class="id">T07</td><td>Sponsors</td><td>Sponsor 4 contract (verbal yes)</td><td>Malena</td><td>Nov 13</td><td><span class="pill p-prog">In progress</span></td><td>T10</td><td>Send contract + VIP dinner package</td></tr>
+    <tr><td class="id">T08</td><td>Production &amp; decor</td><td>Decor concept + vendor</td><td>Malena</td><td>Nov 11</td><td><span class="pill p-todo">Not started</span></td><td>T12</td><td>Brief 2 decor vendors this week</td></tr>
+    <tr><td class="id">T09</td><td>Photo &amp; video</td><td>Book photo/video team</td><td>Malena</td><td>Nov 11</td><td><span class="pill p-todo">Not started</span></td><td>–</td><td>Request 3 quotes (cap $5,000)</td></tr>
+    <tr><td class="id">T10</td><td>Client requests</td><td>VIP dinner / 300 guests / 6pm keynote</td><td>Founder</td><td>Nov 5</td><td><span class="pill p-wait">Waiting on client</span></td><td>T01, T04</td><td>Founder picks Option A or B</td></tr>
+    <tr><td class="id">T11</td><td>VIP dinner</td><td>Book private room for 40</td><td>Malena</td><td>Nov 13</td><td><span class="pill p-todo">Not started</span></td><td>T10, T07</td><td>Hold 2 rooms near venue (no deposit yet)</td></tr>
+    <tr><td class="id">T12</td><td>Venue</td><td>Floor plan v1 with sponsor booths</td><td>Malena</td><td>Nov 10</td><td><span class="pill p-todo">Not started</span></td><td>T04, sponsor deck</td><td>Get sponsor deck from Production Lead</td></tr>
+    <tr><td class="id">T13</td><td>Program</td><td>Run of show v1 (keynote time)</td><td>Malena</td><td>Nov 17</td><td><span class="pill p-todo">Not started</span></td><td>T10, T05</td><td>Draft once keynote time is decided</td></tr>
+    <tr><td class="id">T14</td><td>Guests</td><td>Registration list + waitlist</td><td>Client team</td><td>Nov 13</td><td><span class="pill p-prog">In progress</span></td><td>T01</td><td>Hold at 250, open waitlist</td></tr>
+    <tr><td class="id">T15</td><td>Sponsors</td><td>Deliverables audit vs. deck (S1–S3)</td><td>Malena</td><td>Nov 6</td><td><span class="pill p-todo">Not started</span></td><td>Sponsor deck</td><td>List every promise: booth, stage, logos, seats</td></tr>
+    <tr><td class="id">T16</td><td>Production</td><td>Staffing, radios, signage</td><td>Malena</td><td>Nov 25</td><td><span class="pill p-todo">Not started</span></td><td>T12, T13</td><td>Draft staffing plan in week 3</td></tr>
+    <tr><td class="id">T17</td><td>Production</td><td>Load-in + tech rehearsal</td><td>AV vendor</td><td>Dec 2</td><td><span class="pill p-todo">Not started</span></td><td>T04</td><td>Confirm load-in window with venue</td></tr>
+    <tr><td class="id">T18</td><td>Wrap</td><td>Sponsor recap + budget close</td><td>Malena</td><td>Dec 11</td><td><span class="pill p-todo">Not started</span></td><td>Event</td><td>Template ready in week 4</td></tr>
+  </tbody></table></div></div>
+
+  <div id="t-budget" class="panel" hidden><div class="tbl"><table>
+    <thead><tr><th>Line</th><th>Budget</th><th>Committed</th><th>Remaining</th><th>Status</th><th>Founder approval</th><th>Note</th></tr></thead><tbody>
+    <tr><td>Venue</td><td class="num">45,000</td><td class="num">45,000</td><td class="num">0</td><td><span class="pill p-done">Signed</span></td><td><span class="pill p-done">Approved</span></td><td>Check overtime rate for 6pm keynote</td></tr>
+    <tr><td>Catering</td><td class="num">38,000</td><td class="num">38,000</td><td class="num">0</td><td><span class="pill p-done">Signed</span></td><td><span class="pill p-done">Approved</span></td><td>~$76 per guest per day <span class="est">EST</span>; headcount due Nov 13</td></tr>
+    <tr><td>AV and stage</td><td class="num">22,000</td><td class="num">0</td><td class="num">22,000</td><td><span class="pill p-block">Blocked</span></td><td><span class="pill p-appr">Needed &gt;$5k</span></td><td>No reply in 6 days; backups requested</td></tr>
+    <tr><td>Speakers and travel</td><td class="num">15,000</td><td class="num">Unknown</td><td class="num">–</td><td><span class="pill p-prog">5 of 6</span></td><td><span class="pill p-appr">Headliner fee</span></td><td>Fees not in pack; confirm with Production Lead</td></tr>
+    <tr><td>Production and decor</td><td class="num">12,000</td><td class="num">0</td><td class="num">12,000</td><td><span class="pill p-todo">Not started</span></td><td><span class="pill p-appr">Needed &gt;$5k</span></td><td>Depends on floor plan</td></tr>
+    <tr><td>Photo and video</td><td class="num">5,000</td><td class="num">0</td><td class="num">5,000</td><td><span class="pill p-todo">Not booked</span></td><td><span class="pill p-todo">Not above $5k</span></td><td>I approve if quote ≤ $5,000</td></tr>
+    <tr><td>Contingency</td><td class="num">3,000</td><td class="num">0</td><td class="num">3,000</td><td><span class="pill p-wait">Thin</span></td><td><span class="pill p-appr">Any use</span></td><td>About 2%; industry norm is closer to 10%</td></tr>
+    <tr class="total"><td>Total</td><td class="num">140,000</td><td class="num">83,000+</td><td class="num">57,000</td><td></td><td></td><td></td></tr>
+    <tr><td>Pending: VIP dinner (40)</td><td class="num">–</td><td class="num">~8,500</td><td class="num">–</td><td><span class="pill p-wait">Founder decision</span></td><td><span class="pill p-appr">Needed &gt;$5k</span></td><td>40 × ~$175 + ~$1,500 room/decor <span class="est">EST</span></td></tr>
+    <tr><td>Pending: 6pm keynote overtime</td><td class="num">–</td><td class="num">~2,000</td><td class="num">–</td><td><span class="pill p-wait">Founder decision</span></td><td><span class="pill p-todo">Under $5k</span></td><td>Venue + AV crew + catering staff <span class="est">EST</span></td></tr>
+  </tbody></table></div><p class="note">Remaining includes the $15,000 speakers line, because committed speaker fees aren't in the pack. Sponsor income is not in the pack either, so the budget shows cost only. Sponsor 4's fee is the proposed funding source for the VIP dinner (Option B).</p></div>
+
+  <div id="t-appr" class="panel" hidden><div class="tbl"><table>
+    <thead><tr><th>ID</th><th>Decision / approval</th><th>Amount</th><th>Asked</th><th>Needed by</th><th>Status</th><th>Blocks</th></tr></thead><tbody>
+    <tr><td class="id">D1</td><td>Founder requests: Option A or B</td><td class="num">~10,500 or ~0</td><td>Nov 2</td><td>Nov 5</td><td><span class="pill p-wait">Waiting</span></td><td>T03, T07, T11, T13</td></tr>
+    <tr><td class="id">D2</td><td>AV and stage vendor</td><td class="num">~22,000</td><td>Nov 9</td><td>Nov 10</td><td><span class="pill p-todo">Not asked</span></td><td>T12, T17</td></tr>
+    <tr><td class="id">D3</td><td>Production and decor vendor</td><td class="num">~12,000</td><td>Nov 10</td><td>Nov 11</td><td><span class="pill p-todo">Not asked</span></td><td>T08</td></tr>
+    <tr><td class="id">D4</td><td>Headliner fee (if above $5k)</td><td class="num">Unknown</td><td>Nov 3</td><td>Nov 13</td><td><span class="pill p-todo">Check</span></td><td>T05</td></tr>
+    <tr><td class="id">D5</td><td>OK to pitch VIP dinner to Sponsor 4</td><td class="num">–</td><td>Nov 2</td><td>Nov 5</td><td><span class="pill p-wait">Waiting</span></td><td>T07</td></tr>
+    <tr><td class="id">D6</td><td>Final guest number to caterer</td><td class="num">±$152/guest</td><td>Nov 9</td><td>Nov 12</td><td><span class="pill p-todo">Not asked</span></td><td>T03</td></tr>
+  </tbody></table></div></div>
+
+  <div id="t-head" class="panel" hidden><div class="tbl"><table>
+    <thead><tr><th>Group</th><th>People in room</th><th>Source</th><th>Note</th></tr></thead><tbody>
+    <tr><td>Guests</td><td class="num">250</td><td><span class="conf">CONFIRMED</span></td><td>Founder asks for 300</td></tr>
+    <tr><td>Speakers</td><td class="num">6</td><td><span class="conf">CONFIRMED</span></td><td>5 signed + headliner</td></tr>
+    <tr><td>Sponsor teams (4 × 3)</td><td class="num">12</td><td><span class="est">EST</span></td><td>Confirm booth staff per sponsor</td></tr>
+    <tr><td>Trolley + crew + photo/video</td><td class="num">10</td><td><span class="est">EST</span></td><td>Final with AV and staffing plan</td></tr>
+    <tr><td>Client team</td><td class="num">5</td><td><span class="est">EST</span></td><td>Ask founder</td></tr>
+    <tr class="total"><td>Total in room</td><td class="num">283</td><td></td><td>23 over 260 if capacity is total occupancy</td></tr>
+  </tbody></table></div><p class="note">This is why the guest list can't grow until the venue confirms in writing whether 260 counts guests only or everyone in the room.</p></div>
+
+  <div id="t-spon" class="panel" hidden><div class="tbl"><table>
+    <thead><tr><th>Sponsor</th><th>Status</th><th>Booth position</th><th>Stage moment</th><th>Logos / assets</th><th>VIP seats</th><th>Next step</th></tr></thead><tbody>
+    <tr><td>Sponsor 1</td><td><span class="pill p-done">Signed</span></td><td>Check vs. deck</td><td>Check</td><td>Due Nov 18</td><td>Check</td><td>Deliverables audit (T15)</td></tr>
+    <tr><td>Sponsor 2</td><td><span class="pill p-done">Signed</span></td><td>Check vs. deck</td><td>Expects headliner</td><td>Due Nov 18</td><td>Check</td><td>Deliverables audit (T15)</td></tr>
+    <tr><td>Sponsor 3</td><td><span class="pill p-done">Signed</span></td><td>Check vs. deck</td><td>Expects headliner</td><td>Due Nov 18</td><td>Check</td><td>Deliverables audit (T15)</td></tr>
+    <tr><td>Sponsor 4</td><td><span class="pill p-wait">Verbal only</span></td><td>TBD</td><td>Dinner welcome</td><td>–</td><td>Proposed: VIP dinner host</td><td>Contract by Nov 13 (T07)</td></tr>
+  </tbody></table></div></div>
+
+  <div id="t-spk" class="panel" hidden><div class="tbl"><table>
+    <thead><tr><th>Speaker</th><th>Status</th><th>Contract</th><th>Session</th><th>Travel</th><th>Next step</th></tr></thead><tbody>
+    <tr><td>Headliner (keynote)</td><td><span class="pill p-wait">Not signed</span></td><td>Pending</td><td>Day 1, 6pm (requested)</td><td>–</td><td>Contract by Nov 13 + cancellation clause; 3 backups</td></tr>
+    <tr><td>Speakers 2–6</td><td><span class="pill p-done">Confirmed</span></td><td>Check</td><td>Run of show v1</td><td>Book by Nov 18</td><td>Collect travel details, bios, headshots</td></tr>
+  </tbody></table></div></div>
+
+  <div id="t-risk" class="panel" hidden><div class="tbl"><table>
+    <thead><tr><th>ID</th><th>Risk</th><th>Likelihood</th><th>Impact</th><th>Owner</th><th>Mitigation</th></tr></thead><tbody>
+    <tr><td class="id">R1</td><td>Over capacity / headcount locked wrong</td><td>High</td><td>High</td><td>Malena</td><td>Venue written confirmation; hold at 250 + waitlist</td></tr>
+    <tr><td class="id">R2</td><td>AV vendor unresponsive</td><td>High</td><td>High</td><td>Malena</td><td>Backup quotes; decide Nov 10</td></tr>
+    <tr><td class="id">R3</td><td>Headliner doesn't sign or cancels</td><td>Medium</td><td>High</td><td>Malena</td><td>Deadline Nov 13; backup shortlist; don't announce until signed</td></tr>
+    <tr><td class="id">R4</td><td>Contingency too thin (2%)</td><td>High</td><td>Medium</td><td>Malena</td><td>No spend without founder OK; fund new asks from sponsors</td></tr>
+    <tr><td class="id">R5</td><td>Sponsor 4 never signs</td><td>Medium</td><td>Medium</td><td>Malena</td><td>Concrete package (VIP dinner); deadline Nov 13</td></tr>
+    <tr><td class="id">R6</td><td>Unknown promises in sponsor deck</td><td>Medium</td><td>High</td><td>Malena</td><td>Deliverables audit before floor plan</td></tr>
+    <tr><td class="id">R7</td><td>Thanksgiving week slows vendors</td><td>High</td><td>Medium</td><td>Malena</td><td>All confirmations done by Nov 24</td></tr>
+    <tr><td class="id">R8</td><td>6pm keynote clashes with VIP dinner</td><td>Medium</td><td>Medium</td><td>Malena</td><td>Keynote 6–7pm, dinner 7:45pm, short transfer</td></tr>
+  </tbody></table></div></div>
+
+  <div id="t-comms" class="panel" hidden><div class="tbl"><table>
+    <thead><tr><th>Who</th><th>What</th><th>When</th><th>Channel</th></tr></thead><tbody>
+    <tr><td>Malena</td><td>Daily digest: what changed, 3 things to do today, comments left on the hub</td><td>Every day, 8:30am</td><td>Slack DM + email</td></tr><tr><td>Founder</td><td>Status update, always 3 lines: done and moving, next and risks, decisions needed</td><td>Monday + Thursday, 10am PT</td><td>Email (short)</td></tr>
+    <tr><td>Founder</td><td>Decisions with 2 options + recommendation</td><td>As needed, 48h notice</td><td>Email / WhatsApp</td></tr>
+    <tr><td>Production Lead</td><td>3-line digest; pulled in only for sponsor or contract issues</td><td>Friday</td><td>Slack</td></tr>
+    <tr><td>Vendors</td><td>Follow-ups on anything without reply for 3 days</td><td>Tue + Thu</td><td>Email + call</td></tr>
+    <tr><td>Sponsors</td><td>Deliverables and deadlines</td><td>Every 2 weeks; weekly from Nov 23</td><td>Email</td></tr>
+    <tr><td>Everyone</td><td>Daily stand-up</td><td>Event week</td><td>Call</td></tr>
+  </tbody></table></div></div>
+</div></section>
+
+<section id="status" class="alt"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">Part 1.2</div><h2>First client status update</h2><p>Ready to send. <span class="wc" id="wc-status"></span></p></div>
+  <div class="letter" data-count="wc-status">
+    <div class="meta"><span>To: Founder</span><span>Subject: Founders Summit · Monday status</span></div>
+    <p>Hi Anna,</p>
+    <p>I'm Malena, your day-to-day lead for the Founders Summit. You'll get three lines like these every Monday and Thursday.</p>
+    <p><b>Done and moving:</b> Venue and catering are signed, and five of six speakers and three sponsors are confirmed. The headliner and fourth sponsor contracts are out for signature, and I'm chasing AV today with two backup quotes.</p>
+    <p><b>Next and risks:</b> Floor plan by Nov 10, AV and photo booked by Nov 11, headcount locked Nov 13. The venue's 260 may include crew (confirming this week), and our $3,000 contingency is tight, so I'm protecting it.</p>
+    <p><b>Decisions I need:</b> Your call on the dinner, guest list and keynote by Thursday (two options in my next note), and AV approval, about $22,000, by Nov 10.</p>
+    <p>Talk soon,<br>Malena</p>
+  </div>
+</div></section>
+
+<section id="risks"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">Part 1.3</div><h2>Three risks I watch first</h2></div>
+  <div class="grid3">
+    <div class="card risk"><div class="n">1</div><div><h3>Capacity and headcount</h3>
+      <dl class="kv"><dt>Why</dt><dd>Venue holds 260. With speakers, sponsor teams and crew we may be at ~283 already <span class="est">EST</span>. The founder wants 300 and catering locks Nov 13. Over capacity is a safety and legal issue.</dd>
+      <dt>Owner</dt><dd>Malena; founder decides</dd>
+      <dt>This week</dt><dd>Venue confirms in writing what 260 includes. Build the headcount sheet. Hold at 250 with a waitlist.</dd></dl></div></div>
+    <div class="card risk"><div class="n">2</div><div><h3>AV and stage unbooked</h3>
+      <dl class="kv"><dt>Why</dt><dd>Largest open line ($22,000), no reply in 6 days. Stage size drives the floor plan, sponsor booths and keynote overtime. Thanksgiving shortens the runway.</dd>
+      <dt>Owner</dt><dd>Malena</dd>
+      <dt>This week</dt><dd>Call Monday 9am. Two backup quotes by Wednesday. Founder approval and booking by Nov 10.</dd></dl></div></div>
+    <div class="card risk"><div class="n">3</div><div><h3>Headliner not signed</h3>
+      <dl class="kv"><dt>Why</dt><dd>Sponsors expect the headliner on stage, and the keynote is the anchor of day one. Without a contract we have no protection if they drop.</dd>
+      <dt>Owner</dt><dd>Malena; founder if she owns the relationship</dd>
+      <dt>This week</dt><dd>Contract out with a Nov 13 deadline and cancellation clause. Shortlist 3 backups. Don't announce until signed.</dd></dl></div></div>
+  </div>
+  <div class="letter" style="margin-top:20px">
+    <div class="meta"><span>To: Production Lead · Slack</span><span>Handoff note</span></div>
+    <p><b>What I own:</b> The Founders Summit end to end from today: founder comms, budget, vendors, sponsors, speakers and the tracker.</p>
+    <p><b>What I need from you:</b> 20 minutes by Tuesday on what isn't written down: the sponsor deck promises (especially booth positions), the AV contact and where the headliner talks stand.</p>
+    <p><b>What you can stop thinking about:</b> Everything else. You'll get a 3-line digest every Friday, and I'll only pull you in for sponsor or contract issues.</p>
+  </div>
+</div></section>
+
+<section id="reply" class="alt"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">Part 2.1</div><h2>Reply to the founder's request</h2><p>Protect the room, the budget and the relationship at the same time. <span class="wc" id="wc-reply"></span></p></div>
+  <div class="letter" data-count="wc-reply">
+    <div class="meta"><span>To: Founder</span><span>Re: VIP dinner, guest list, keynote</span></div>
+    <p>Hi Anna, love this. A VIP dinner after a 6pm keynote makes night one feel special.</p>
+    <p>One hard limit: the venue holds 260 people in total, so 300 isn't possible in this room. We hold at 250 with a waitlist while I confirm whether crew counts.</p>
+    <p class="opt"><b>Option A: We fund it.</b> VIP dinner for 40 in a private room nearby (~$8,500) and keynote at 6–7pm, dinner at 7:45pm (~$2,000 overtime). About $10,500 extra, new total $150,500. Trade-off: everything you asked for, at a higher spend.</p>
+    <p class="opt"><b>Option B: A sponsor funds it.</b> Same plan, but we offer the dinner to our fourth sponsor as their headline package, which also gets their contract signed. Overtime comes from contingency. Close to $0 extra for you. Trade-off: it depends on them signing by Nov 13. If they pass, we fall back to A.</p>
+    <p class="rec"><b>My recommendation: Option B.</b> It turns a verbal yes into a signed sponsor and protects your budget.</p>
+    <p><b>What I need by Thursday:</b> A or B, and your OK to pitch the sponsor. Then everything is confirmed by Friday.</p>
+    <p>Malena</p>
+  </div>
+</div></section>
+
+<section id="sponsor"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">Part 2.2</div><h2>The sponsor complaint</h2><p><span class="wc" id="wc-sponsor"></span></p></div>
+  <div class="letter" data-count="wc-sponsor">
+    <p><b>1.</b> Within the hour, reply-all (founder copied): "Thanks for flagging this. You'll have a solution today. I'll call you at 3pm." No debate by email.</p>
+    <p><b>2.</b> Check the facts: contract and deck vs. floor plan. Then the Production Lead, who sold the deck, and the venue, to find two workable fixes.</p>
+    <p><b>3.</b> Call, agree a fix, confirm it in writing within 24 hours, update the floor plan and send the founder a two-line close-out.</p>
+    <p><b>Who first:</b> the sponsor, to stop the escalation. Then the Production Lead.</p>
+    <p><b>On the call:</b> "You were promised that spot, and it's on us to make it right. Here are two ways we can do that this week."</p>
+  </div>
+</div></section>
+
+<section id="headliner" class="alt"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">Part 2.3</div><h2>The headliner cancels, 48 hours out</h2><p><span class="wc" id="wc-head"></span></p></div>
+  <div class="letter" data-count="wc-head">
+    <p><b>1.</b> Call the headliner's agent (15 minutes): is it final? Could they join by video or send a recorded talk? Check refund terms.</p>
+    <p><b>2.</b> Call the founder within the hour, before it leaks: "[Headliner] cancelled. I'm on it. Two options: you host a fireside with our strongest speaker, or a backup from our shortlist. You'll have a confirmed name by noon tomorrow."</p>
+    <p><b>3.</b> Lock the replacement; update run of show, AV and signage.</p>
+    <p><b>Sponsors:</b> I call both personally before any announcement. I offer an on-stage moment in the new headline session and extra visibility, then confirm in writing.</p>
+    <p><b>Who first:</b> the agent, for facts. Then the founder.</p>
+  </div>
+</div></section>
+
+<section id="ai"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">Part 3</div><h2>AI workflow: Daily Pulse</h2>
+  <p>The one I would actually use. Every morning it reads new emails, messages (Slack, WhatsApp, iMessage) and Granola meeting notes, plus the hub tracker. It flags blockers, overdue items and unapproved spend, and sends me a daily digest. On Mondays and Thursdays it also drafts the 3-line founder update, and on Fridays the Production Lead digest. Nobody has to chase me, and I don't have to chase anyone.</p></div>
+
+  <div class="flow"><span>Gmail · Slack · WhatsApp · Granola</span><i>→</i><span>Founders Summit HQ</span><i>→</i><span>Claude + instructions</span><i>→</i><span>Flags, daily digest, drafts</span><i>→</i><span class="h">Malena reviews and edits</span><i>→</i><span>Sent</span></div>
+
+  <div class="grid2">
+    <div class="card"><h3>Tool and where it lives</h3><p>Claude, set up as a scheduled task every morning at 8am (and on demand). It reads Gmail, messages from Slack, WhatsApp and iMessage, and Granola meeting notes (only threads and meetings tagged Founders Summit), plus the hub. It writes new items to the hub's inbox feed, sends my digest by Slack DM, and saves client drafts in Gmail. The hub computes its own flags for overdue items and spend above $5,000, so dates and thresholds are checked twice. For this test the sync is shown, not switched on, because the scenario has no real inbox.</p></div>
+    <div class="card"><h3>What it can and can't do</h3><ul>
+      <li><b>Can:</b> read sources, add items to the hub feed, update last-contact dates, flag, draft, send my own digest.</li>
+      <li><b>Can't:</b> send anything to the client, sponsors or vendors, change status, money or dates on its own, approve spend or promise dates. Those changes are proposed to me first.</li>
+      <li><b>Human check:</b> I read and edit every draft before it goes out. The founder message always gets my own voice.</li></ul></div>
+  </div>
+
+  <div class="card" style="margin-top:20px"><button class="copy" data-copy="prompt">Copy</button><h3>Exact instructions</h3><pre id="prompt"></pre></div>
+  <div class="grid2" style="margin-top:20px">
+    <div class="card"><h3>Real input: tracker snapshot (Monday)</h3><pre id="input"></pre></div>
+    <div class="card"><h3>Output it produced</h3><pre id="output"></pre></div>
+  </div>
+  <div class="card" style="margin-top:20px"><h3>How I'd know it got something wrong</h3><ul>
+    <li>Every claim cites a tracker ID. A claim with no ID, or an ID that doesn't match the row, gets cut.</li>
+    <li>The number of flags must match the hub's own flag counts. If they differ, I check before anything goes out.</li>
+    <li>Anything it can't find shows as "UNKNOWN - check" instead of a guess, and it lists what it was unsure about at the end.</li>
+    <li>Money and dates are checked against the Budget tab by me, every time.</li>
+    <li>Each week I note what I had to edit. If the same fix repeats, I update the instructions.</li></ul></div>
+</div></section>
+
+<section id="assumptions" class="alt"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">Notes</div><h2>Assumptions and decisions</h2><p>The pack is incomplete by design. This is what I assumed, why, and how sure I am.</p></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Assumption / decision</th><th>Why</th><th>Type</th></tr></thead><tbody>
+    <tr><td>The founder is called Anna</td><td>Placeholder name for reference; the pack doesn't name her</td><td><span class="est">ASSUMED</span></td></tr>
+    <tr><td>Event is Thu–Fri, Dec 3–4, 2026</td><td>"Five weeks from today"; weekdays suit a founder summit. Confirm on first call.</td><td><span class="est">ASSUMED</span></td></tr>
+    <tr><td>Day one of ownership is Mon, Nov 2</td><td>Submission date is Sun, Nov 1</td><td><span class="est">ASSUMED</span></td></tr>
+    <tr><td>Founder's "Friday" is Nov 6; I ask for her decision by Thu Nov 5</td><td>Leaves a day to confirm with vendors</td><td><span class="est">DECISION</span></td></tr>
+    <tr><td>Catering headcount locked internally Nov 13</td><td>Vendor deadline is 14 days out (Nov 15, a Sunday)</td><td><span class="est">DECISION</span></td></tr>
+    <tr><td>260 capacity may be total occupancy</td><td>Fire codes usually count everyone in the room. Must be confirmed in writing.</td><td><span class="est">TO CONFIRM</span></td></tr>
+    <tr><td>Catering ≈ $76 per guest per day</td><td>$38,000 ÷ 250 guests ÷ 2 days; assumes linear pricing</td><td><span class="est">EST</span></td></tr>
+    <tr><td>VIP dinner ≈ $8,500</td><td>40 × ~$175 (LA private dining incl. tax and service) + ~$1,500 room and decor</td><td><span class="est">EST</span></td></tr>
+    <tr><td>6pm keynote overtime ≈ $2,000</td><td>Extra venue hours, AV crew and catering staff</td><td><span class="est">EST</span></td></tr>
+    <tr><td>Keynote is on day one</td><td>Pack doesn't say; it pairs naturally with the night-one dinner</td><td><span class="est">ASSUMED</span></td></tr>
+    <tr><td>Sponsor 4's fee could cover the dinner</td><td>Sponsor fees aren't in the pack; checked before pitching</td><td><span class="est">TO CONFIRM</span></td></tr>
+    <tr><td>Photo/video at $5,000 doesn't need founder approval</td><td>The rule is "above $5,000"</td><td><span class="conf">FROM PACK</span></td></tr>
+    <tr><td>Client team owns the guest list and registration</td><td>Usual split; Trolley owns production</td><td><span class="est">ASSUMED</span></td></tr>
+    <tr><td>Thanksgiving (Nov 26–27) slows vendors</td><td>US holiday; I plan all confirmations by Nov 24</td><td><span class="conf">FACT</span></td></tr>
+  </tbody></table></div>
+</div></section>
+
+<section id="monday"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">What the test couldn't show</div><h2>My first Monday</h2></div>
+  <div class="grid2">
+    <div class="card"><ol>
+      <li>9:00 · Call the AV vendor. Don't wait for an email.</li>
+      <li>9:30 · 20 minutes with the Production Lead: what the founder likes, what was promised verbally, sponsor deck history.</li>
+      <li>10:30 · Read every signed contract: capacity, overtime, cancellation and change clauses.</li>
+      <li>12:00 · Intro call with the founder: how she likes updates, who else on her team I work with, and her decisions.</li>
+      <li>Afternoon · Site visit at the venue to walk the floor plan and stage with my own eyes.</li></ol></div>
+    <div class="card"><h3>Why this approach</h3><p>I've run events with fixed dates and fixed budgets before, like the FIFA Tech Summit U20 and the AFA Trophy Tour at Globant, and I teach Corporate Event Management in English at UADE. What I learned: the client remembers how calm you were and how early they heard about a problem, more than the problem itself.</p></div>
+  </div>
+</div></section>
+
+<section id="tools" class="alt"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">AI use</div><h2>How I used AI</h2></div>
+  <div class="card"><p>I used Claude to structure the tracker, check word limits, pressure-test the budget math and run the Daily Pulse workflow on the scenario pack. The calls are mine: holding the room at 250, funding the dinner through the fourth sponsor, and contacting the sponsor before anyone else.</p></div>
+</div></section>
+<footer><div class="wrap"><p style="margin:0 0 8px"><a href="hq/">Founders Summit HQ (live hub)</a> · <a href="files/Assumptions_Notes_Malena_Kuipers.pdf">Assumptions notes (PDF)</a> · <a href="files/Founders_Summit_Tracker.xlsx">Tracker export (Excel)</a></p>Malena Kuipers · Trolley Account Manager assessment, Test A · Built from the scenario pack only. Fictional scenario.</div></footer>
+
+<script>
+document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-selected',x===b?'true':'false'));
+  document.querySelectorAll('.panel').forEach(p=>p.hidden=p.id!==b.dataset.tab);
+}));
+document.querySelectorAll('[data-count]').forEach(el=>{
+  const clone=el.cloneNode(true); clone.querySelectorAll('.meta').forEach(m=>m.remove());
+  const n=clone.textContent.trim().split(/\s+/).filter(w=>/[A-Za-z0-9$]/.test(w)).length;
+  const t=document.getElementById(el.dataset.count); if(t) t.textContent=n+' words';
+});
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
+  const txt=document.getElementById(b.dataset.copy).textContent;
+  const done=()=>{b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1500)};
+  if(navigator.clipboard){navigator.clipboard.writeText(txt).then(done).catch(()=>{const r=document.createRange();r.selectNodeContents(document.getElementById(b.dataset.copy));getSelection().removeAllRanges();getSelection().addRange(r)})}
+}));
+</script>
+<script id="wfdata" type="application/json">{"prompt": "You are the Daily Pulse assistant for Trolley's Founders Summit account (Los Angeles, Dec 3-4, 2026, 250 guests). You help the Account Manager, Malena, keep the founder and the Production Lead informed. You run every morning.\n\nINPUT: the project tracker from the Founders Summit HQ hub (one row per item), the \"as of\" date, and any new emails, Slack messages and Granola meeting notes tagged Founders Summit since the last run.\n\nRULES\n1. Use ONLY facts in the tracker. Never invent names, prices, dates or statuses. If something is missing, write \"UNKNOWN - check\".\n2. Cite the tracker ID (e.g. [T07]) after every claim.\n3. Flag as BLOCKER any item whose Status is \"Blocked\" or whose Due date is before the as-of date and Status is not \"Done\".\n4. Flag as APPROVAL NEEDED any item with Amount above 5000 USD where Founder approval is not \"Approved\".\n5. Flag as CHASE any vendor item with \"Last contact\" 3 or more days before the as-of date and no reply.\n6. Do not decide anything. Do not promise dates that are not in the tracker. Never send anything; you only draft.\n\nOUTPUT (these sections, in this order)\nA. FLAGS - a table: ID | Item | Flag type | Why | Suggested next step | Owner\nB. DAILY DIGEST FOR MALENA - max 6 bullets: what changed since yesterday, the 3 things to do today, anything waiting on someone else.\nC. FOUNDER STATUS DRAFT - only on Mondays and Thursdays. Always exactly 3 lines after \"Hi Anna,\", warm and direct: line 1 Done and moving, line 2 Next and risks, line 3 Decisions I need from you (with deadlines). Sign as Malena.\nD. PRODUCTION LEAD DIGEST - only on Fridays. Max 3 lines: what moved, what is at risk, whether she is needed.\nEnd with a line \"CHECK BEFORE SENDING:\" listing any claim you were unsure about.", "input": "AS OF: 2026-11-02 (Monday, week 1)\nID,Workstream,Item,Owner,Due,Status,Amount USD,Founder approval,Last contact,Dependency,Next step\nT01,Venue,Venue contract,Malena,2026-10-26,Done,45000,Approved,,,\"Confirm in writing if 260 capacity includes staff, crew, speakers\"\nT02,Catering,Catering contract,Malena,2026-10-26,Done,38000,Approved,,,Lock final headcount\nT03,Catering,Final headcount to caterer,Malena,2026-11-13,Not started,,,,T01 capacity answer + founder decision on guest list,Build headcount sheet\nT04,AV & stage,AV quote,Malena,2026-10-30,Blocked,22000,Pending,2026-10-27,,\"No reply in 6 days. Call vendor, request 2 backup quotes\"\nT05,Speakers,Headliner contract,Malena,2026-11-13,In progress,UNKNOWN,Pending,2026-10-29,,\"Send contract with signing deadline, build backup shortlist\"\nT06,Speakers,5 speakers confirmed,Malena,2026-10-30,Done,,,,,Collect travel details\nT07,Sponsors,Sponsor 4 contract (verbal yes),Malena,2026-11-13,In progress,UNKNOWN,,2026-10-28,,Send contract + package\nT08,Production & decor,Decor concept and vendor,Malena,2026-11-11,Not started,12000,Pending,,T12 floor plan,Brief 2 decor vendors\nT09,Photo & video,Book photo/video team,Malena,2026-11-11,Not started,5000,Not required (not above 5000),,,Request 3 quotes\nT10,Client requests,VIP dinner 40 / guests 300 / keynote 6pm,Founder,2026-11-05,Waiting on client,8500 (estimate),Pending,,T01 + T04,Founder picks Option A or B\nT11,Budget,Contingency 3000 (2% of budget),Malena,,At risk,3000,,,,Protect; no spend without founder OK\nT12,Venue,Floor plan v1 incl. sponsor booths,Malena,2026-11-10,Not started,,,,T04 stage size + sponsor deck promises,Get sponsor deck from Production Lead", "output": "# DAILY PULSE: Monday 2026-11-02 (week 1)\n\n## A. FLAGS\n\n| ID | Item | Flag type | Why | Suggested next step | Owner |\n|---|---|---|---|---|---|\n| T04 | AV quote | BLOCKER | Status is Blocked and due 2026-10-30 has passed. [T04] | Call the vendor and request 2 backup quotes. [T04] | Malena |\n| T04 | AV quote | APPROVAL NEEDED | Amount is 22,000 USD and founder approval is Pending. [T04] | Ask Anna for approval once the quote is confirmed. | Malena |\n| T04 | AV quote | CHASE | Last contact was 2026-10-27, 6 days ago, with no reply. [T04] | Call the vendor today. [T04] | Malena |\n| T08 | Decor concept and vendor | APPROVAL NEEDED | Amount is 12,000 USD and founder approval is Pending. [T08] | Brief 2 decor vendors. [T08] It depends on the T12 floor plan. [T08] | Malena |\n| T10 | VIP dinner 40 / guests 300 / keynote 6pm | APPROVAL NEEDED | Estimate is 8,500 USD and founder approval is Pending. [T10] Due 2026-11-05. [T10] | Founder picks Option A or B. [T10] | Founder |\n| T05 | Headliner contract | CHASE (tentative) | Last contact was 2026-10-29, 4 days ago. [T05] Reply status is not in the tracker (UNKNOWN - check). | Send the contract with a signing deadline and build a backup shortlist. [T05] | Malena |\n| T05 | Headliner contract | APPROVAL NEEDED (cannot assess) | Amount is UNKNOWN and approval is Pending. [T05] | Get the amount. If it is above 5,000 USD, approval is needed. | Malena |\n| T07 | Sponsor 4 contract | CHASE (tentative) | Last contact was 2026-10-28, 5 days ago. [T07] A sponsor is not strictly a vendor, and reply status is UNKNOWN - check. | Send the contract and package. [T07] | Malena |\n\nOpen risks that don't trigger a rule:\n- **T01:** The tracker marks the contract Done, but the next step is still to confirm in writing whether 260 capacity includes staff, crew and speakers. [T01] That answer gates the headcount [T03] and the VIP dinner decision. [T10]\n- **T12:** Floor plan v1 is due 2026-11-10 and not started. [T12] It depends on the T04 stage size and the sponsor deck, which Malena needs to get from the Production Lead. [T12]\n- **T11:** Contingency of 3,000 USD is At Risk. [T11] Protect it, with no spend without founder OK. [T11]\n\n## B. DAILY DIGEST FOR MALENA\n\n- **What changed:** No new emails, Slack messages or Granola notes came with this run, and there is no prior tracker to compare against. UNKNOWN - check.\n- **Today 1:** Call the AV vendor and request 2 backup quotes. It is 6 days with no reply and the item is overdue. [T04]\n- **Today 2:** Send the written capacity question to the venue (does 260 include staff, crew and speakers?). [T01] It unblocks the headcount [T03] and the VIP dinner decision. [T10]\n- **Today 3:** Nudge Anna on Option A or B for the VIP dinner, due 2026-11-05. [T10] Also send the headliner contract with a signing deadline [T05] and the Sponsor 4 contract and package. [T07]\n- **Waiting on others:** The AV vendor for the quote. [T04] Anna for the T10 choice and for approvals on T04 (22,000 USD), T08 (12,000 USD) and T05. [T04][T08][T05] The Production Lead for the sponsor deck. [T12]\n- **Watch:** Several approvals are stacked at once: T04, T05, T08 and T10. T08 is due 2026-11-11 [T08] and T05 is due 2026-11-13. [T05]\n\n## C. FOUNDER STATUS DRAFT\n\nHi Anna,\nDone and moving: venue and catering contracts are done [T01][T02], the 5 speakers are confirmed [T06], and Sponsor 4's verbal yes is moving to contract. [T07]\nNext and risks: the AV quote is blocked after 6 days with no vendor reply, so I'm calling and requesting 2 backup quotes [T04]. I'm also confirming in writing with the venue whether the 260 capacity includes staff, crew and speakers. [T01]\nDecisions I need from you: VIP dinner Option A or B by 2026-11-05 [T10], plus approvals on the AV quote at 22,000 USD (no deadline in tracker, UNKNOWN - check) [T04] and decor at 12,000 USD (due 2026-11-11). [T08]\nMalena\n\n*(Section D is omitted because it only runs on Fridays.)*\n\nCHECK BEFORE SENDING:\n- T05 and T07: whether the vendor or sponsor has replied since the last contact date. The tracker doesn't say, so both CHASE flags are tentative.\n- T05 and T07: the contract amounts are UNKNOWN. If either is above 5,000 USD, it also needs founder approval. T07's approval field is blank.\n- T04: the founder-approval deadline is not in the tracker. Add one before sending, or leave it as is.\n- T01: the tracker shows Done, but the capacity confirmation is still open. Check that wording with the venue.\n- Whether the \"Option A / Option B\" details are known to Anna. The tracker doesn't describe them."}</script>
+<script>
+try{const d=JSON.parse(document.getElementById('wfdata').textContent);
+['prompt','input','output'].forEach(k=>{document.getElementById(k).textContent=d[k]})}catch(e){}
+</script>
+<script>
+(function(){
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hero=document.getElementById('hero'),nav=document.getElementById('topnav'),bar=document.querySelector('.progress');
+  requestAnimationFrame(function(){requestAnimationFrame(function(){hero&&hero.classList.add('go');countUp()})});
+  function countUp(){document.querySelectorAll('[data-count]').forEach(function(el){
+    var end=+el.dataset.count,pre=el.dataset.prefix||'',t0=null,dur=reduce?0:1400;
+    function f(t){if(!t0)t0=t;var k=dur?Math.min(1,(t-t0)/dur):1;k=1-Math.pow(1-k,4);el.textContent=pre+Math.round(end*k).toLocaleString('en-US');if(k<1)requestAnimationFrame(f)}
+    setTimeout(function(){requestAnimationFrame(f)},650)})}
+  var sel='.sec-head,.card,.letter,.wk,.tbl,.ros a,.flow,.timeline,.tabs,.note';
+  var els=[].slice.call(document.querySelectorAll(sel)).filter(function(e){return !e.closest('.hero')&&!e.closest('.panel')&&!e.parentElement.closest('.card,.letter,.tbl')});
+  els.forEach(function(e){e.classList.add('rv');var sib=[].filter.call(e.parentElement.children,function(c){return c.matches(sel)});var i=sib.indexOf(e);e.style.setProperty('--d',Math.min(i*80,480)+'ms')});
+  if('IntersectionObserver' in window&&!reduce){
+    var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{rootMargin:'0px 0px -8% 0px',threshold:.08});
+    els.forEach(function(e){io.observe(e)});
+  } else els.forEach(function(e){e.classList.add('in')});
+  var links={};document.querySelectorAll('nav.top a[href^="#"]').forEach(function(a){links[a.getAttribute('href').slice(1)]=a});
+  if('IntersectionObserver' in window){
+    var spy=new IntersectionObserver(function(en){en.forEach(function(x){var a=links[x.target.id];if(!a)return;if(x.isIntersecting){Object.keys(links).forEach(function(k){links[k].classList.remove('on')});a.classList.add('on');try{a.scrollIntoView({block:'nearest',inline:'center',behavior:reduce?'auto':'smooth'})}catch(e){}}})},{rootMargin:'-45% 0px -50% 0px'});
+    document.querySelectorAll('section[id]').forEach(function(s){spy.observe(s)});
+  }
+  var ticking=false;
+  function onScroll(){if(ticking)return;ticking=true;requestAnimationFrame(function(){
+    var h=document.documentElement,p=h.scrollTop/((h.scrollHeight-h.clientHeight)||1);
+    if(bar)bar.style.setProperty('--p',p.toFixed(4));
+    if(nav&&hero)nav.classList.toggle('light',hero.getBoundingClientRect().bottom<60);
+    ticking=false})}
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+  if(hero&&!reduce&&matchMedia('(pointer:fine)').matches){hero.addEventListener('pointermove',function(e){var r=hero.getBoundingClientRect();hero.style.setProperty('--mx',(e.clientX-r.left)+'px');hero.style.setProperty('--my',(e.clientY-r.top)+'px')})}
+})();
+</script>
+</body></html>
