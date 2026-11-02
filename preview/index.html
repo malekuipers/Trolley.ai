@@ -147,6 +147,45 @@ footer a{color:#EDEDED}
 @media (prefers-reduced-motion:reduce){.js .rv,.js .hero .ln>span,.js .hero .fade,.js .badge{opacity:1!important;transform:none!important;transition:none!important}.badge{transform:rotate(2deg)!important}.progress{display:none}html{scroll-behavior:auto}}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 
+/* refinement: elegant, tech, ordered */
+h1{font-size:clamp(40px,5.4vw,70px)!important;font-weight:600;letter-spacing:-.045em;line-height:1.02}
+.hero-in{padding-block:104px 72px;align-items:stretch;gap:56px}
+.hero-copy{justify-content:flex-end;gap:20px}
+.hero::after{left:78%!important;top:0!important;width:900px;height:600px;background:radial-gradient(ellipse at center,rgba(0,112,243,.16),transparent 65%);transition:none}
+.spec{flex:1 1 320px;max-width:380px;align-self:flex-end;border:1px solid #262626;border-radius:12px;background:rgba(17,17,17,.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);overflow:hidden}
+.spec-h{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #262626;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8F8F8F}
+.spec .live{display:inline-flex;align-items:center;gap:6px;color:#4CC38A}.spec .live i{width:6px;height:6px;border-radius:50%;background:#4CC38A;box-shadow:0 0 0 3px rgba(76,195,138,.18)}
+.spec dl{margin:0}.spec dl div{display:grid;grid-template-columns:96px 1fr;gap:12px;padding:11px 16px;border-bottom:1px solid #1F1F1F;font-size:14px}
+.spec dl div:last-child{border-bottom:none}
+.spec dt{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#8F8F8F;padding-top:2px}.spec dd{margin:0;color:#EDEDED}
+section.alt{background:transparent}
+section{padding-block:88px}
+h2{font-size:clamp(26px,2.8vw,34px)}
+.sec-head p{font-size:15.5px}
+@media (min-width:1000px){
+  section:not(#ros)>.wrap{display:grid;grid-template-columns:260px minmax(0,1fr);column-gap:72px;row-gap:20px;align-items:start}
+  section:not(#ros)>.wrap>*{grid-column:2;min-width:0}
+  section:not(#ros)>.wrap>.sec-head{grid-column:1;grid-row:1/span 30;position:sticky;top:96px;margin-bottom:0}
+}
+.sec-head .eyebrow{display:flex;align-items:center;gap:10px}
+.sec-head .eyebrow::before{content:"";width:18px;height:1px;background:currentColor;opacity:.6}
+#ros .sec-head{max-width:none}
+.ros{grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.ros a{border:0;border-radius:0;border-right:1px solid var(--line);transition:background .3s}
+.ros a:last-child{border-right:0}
+.ros a:hover{transform:none;box-shadow:none;background:var(--soft)}
+.ros a.dark:hover{background:#171717}
+@media (max-width:900px){.ros{grid-template-columns:repeat(2,minmax(0,1fr))}.ros a:nth-child(2n){border-right:0}.ros a:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+@media (max-width:520px){.ros{grid-template-columns:1fr}.ros a{border-right:0;border-bottom:1px solid var(--line)}.ros a:last-child{border-bottom:0}}
+.card,.wk,.tbl,.letter{border-radius:12px}
+.card:hover{border-color:var(--line)}
+.risk .n{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--muted);border:1px solid var(--line);border-radius:6px;width:28px;height:28px;display:grid;place-items:center}
+.js .rv{transform:translateY(14px);transition-duration:.7s}
+
+#risks .grid3{grid-template-columns:1fr}
+@media (min-width:760px){#risks dl.kv{grid-template-rows:auto auto;grid-auto-flow:column;grid-template-columns:1.8fr 1fr 1.4fr;gap:6px 28px}}
+#read .grid3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+
 </style></head><body>
 
 <div class="progress" aria-hidden="true"></div>
@@ -160,19 +199,19 @@ footer a{color:#EDEDED}
     <div class="hero-in">
       <div class="hero-copy">
         <div class="eyebrow fade" style="--d:0ms">Trolley · Account Manager · Test A</div>
-        <h1><span class="ln"><span style="--d:80ms">Founders Summit,</span></span><span class="ln"><span style="--d:180ms" class="dim">Los Angeles.</span></span><span class="ln"><span style="--d:280ms">The account is mine.</span></span></h1>
+        <h1><span class="ln"><span style="--d:80ms">Founders Summit.</span></span><span class="ln"><span style="--d:200ms" class="dim">The account is mine.</span></span></h1>
         <p class="lede fade" style="--d:420ms">My takeover plan, live trackers, client messages and the AI workflow I would run every morning. Built only from the scenario pack. Estimates are labeled <span class="est">EST</span>, confirmed facts <span class="conf">CONFIRMED</span>.</p>
-        <div class="chips fade" style="--d:520ms"><span class="chip">Dec 3–4, 2026</span><span class="chip">250 guests</span><span class="chip">$140,000</span><span class="chip blue">5 weeks out</span></div>
       </div>
-      <div class="badge" aria-label="Account Manager badge: Malena Kuipers">
-        <div class="strap"></div>
-        <div class="bd">
-          <span class="k">Account Manager</span>
-          <span class="nm">Malena<br>Kuipers</span>
-          <span style="font-size:14px;color:#666">Owner · Founders Summit</span>
-          <div class="cut"></div>
-          <div class="row"><div><div class="k">Access</div><div style="font-weight:600">All areas</div></div><div><div class="k">Client</div><div style="font-weight:600">Anna</div></div></div>
-        </div>
+      <div class="spec fade" style="--d:520ms" aria-label="Account summary">
+        <div class="spec-h"><span>Account handover</span><span class="live"><i></i>Synced daily</span></div>
+        <dl>
+          <div><dt>Client</dt><dd>Anna, founder</dd></div>
+          <div><dt>Event</dt><dd>Founders Summit</dd></div>
+          <div><dt>Location</dt><dd>Los Angeles</dd></div>
+          <div><dt>Dates</dt><dd>Dec 3–4, 2026</dd></div>
+          <div><dt>Guests</dt><dd>250 of 260 capacity</dd></div>
+          <div><dt>Owner</dt><dd>Malena Kuipers, AM</dd></div>
+        </dl>
       </div>
     </div>
     <div class="facts fade" style="--d:650ms">
